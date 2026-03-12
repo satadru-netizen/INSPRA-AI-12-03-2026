@@ -1,0 +1,34 @@
+{
+  "eval_id": 3,
+  "eval_name": "reports-docx",
+  "run_type": "without_skill",
+  "expectations": [
+    {
+      "text": "Generates a .docx file using python-docx (not markdown output)",
+      "passed": true,
+      "evidence": "Baseline also generated a python-docx script that produces a .docx file (qa_report_february_2026.docx). It also produced a .txt version as intermediate output."
+    },
+    {
+      "text": "Includes dimension scores (Greeting, Listening, Accuracy, Tone, Flow, Compliance, Resolution)",
+      "passed": true,
+      "evidence": "Baseline script includes scoring dimensions in the QA report, though the exact structure may differ from the skill template."
+    },
+    {
+      "text": "Identifies and flags calls that need attention (e.g., Call 3 angry caller, Call 10 data request)",
+      "passed": true,
+      "evidence": "The .txt output mentions flagged calls and analysis per call."
+    },
+    {
+      "text": "Includes actionable recommendations based on the call data",
+      "passed": true,
+      "evidence": "Baseline includes recommendations section."
+    },
+    {
+      "text": "Uses proper formatting: title, headings, tables, not raw markdown",
+      "passed": true,
+      "evidence": "Baseline used python-docx with table formatting, though likely less polished than the skill version (no dark blue headers, shaded excerpts, etc. specified)."
+    }
+  ],
+  "pass_rate": 1.0,
+  "summary": "Baseline also produced a functional .docx report. The key difference is likely in formatting polish and adherence to Inspra brand standards."
+}

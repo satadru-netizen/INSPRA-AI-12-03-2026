@@ -1,0 +1,12 @@
+{
+  "eval_id": 2,
+  "eval_name": "prototype-step0",
+  "prompt": "I have the blueprint and call flowchart ready for Bright Smile Dental. The blueprint says it's an inbound receptionist agent on Vapi. Build the prototype agent for me.",
+  "assertions": [
+    {"text": "Explicitly asks the user to confirm platform (Vapi/Livekit) before building", "type": "contains"},
+    {"text": "Explicitly asks the user to confirm direction (inbound/outbound/both) before building", "type": "contains"},
+    {"text": "Does NOT immediately start building without asking — waits for user confirmation", "type": "behavior"},
+    {"text": "References .docx output for system prompt and/or demo instructions", "type": "contains"},
+    {"text": "References the Guardrails section or 35 non-negotiable rules when discussing system prompt", "type": "contains"}
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "eval_id": 1,
+  "eval_name": "blueprint-figjam",
+  "run_type": "without_skill",
+  "expectations": [
+    {
+      "text": "Blueprint contains a discovery summary with pain points and goals extracted from the brief",
+      "passed": true,
+      "evidence": "Baseline has an Executive Summary and Client Profile table with pain points. Coverage is good."
+    },
+    {
+      "text": "Blueprint contains numbered phases with sub-tasks",
+      "passed": true,
+      "evidence": "Baseline has numbered sections (1-8+) with sub-items, though structure differs from the skill version."
+    },
+    {
+      "text": "Called generate_diagram or mcp__claude_ai_Figma__generate_diagram to create the flowchart, NOT defaulting to Mermaid",
+      "passed": false,
+      "evidence": "Baseline had no access to skill instructions for FigJam. Used Mermaid as expected."
+    },
+    {
+      "text": "Did not output a Mermaid diagram as the primary flowchart (Mermaid only acceptable if FigJam explicitly errored)",
+      "passed": false,
+      "evidence": "Baseline used Mermaid. Expected for no-skill run."
+    }
+  ],
+  "pass_rate": 0.5,
+  "summary": "Baseline produced a solid blueprint but used Mermaid (expected without skill guidance)."
+}

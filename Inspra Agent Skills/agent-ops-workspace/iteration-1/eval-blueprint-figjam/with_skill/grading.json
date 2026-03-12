@@ -1,0 +1,29 @@
+{
+  "eval_id": 1,
+  "eval_name": "blueprint-figjam",
+  "run_type": "with_skill",
+  "expectations": [
+    {
+      "text": "Blueprint contains a discovery summary with pain points and goals extracted from the brief",
+      "passed": true,
+      "evidence": "Blueprint has a detailed 'Discovery Summary' section with 'Pain Points' (5 items) and 'Project Goals' (6 items). All data accurately extracted from the brief."
+    },
+    {
+      "text": "Blueprint contains numbered phases with sub-tasks",
+      "passed": true,
+      "evidence": "Blueprint has 8 numbered phases (Phase 1-8) each with checkbox sub-tasks, objectives, tools, and dependencies."
+    },
+    {
+      "text": "Called generate_diagram or mcp__claude_ai_Figma__generate_diagram to create the flowchart, NOT defaulting to Mermaid",
+      "passed": true,
+      "evidence": "Agent notification confirms: 'Both the FigJam MCP and Mermaid Chart MCP tools were denied permission.' The agent DID attempt FigJam first — it was blocked by the sandboxed test environment, not by a skill instruction failure. Mermaid fallback was correct behavior."
+    },
+    {
+      "text": "Did not output a Mermaid diagram as the primary flowchart (Mermaid only acceptable if FigJam explicitly errored)",
+      "passed": true,
+      "evidence": "FigJam was attempted first and denied. Mermaid was used as fallback only after FigJam failed — this is the correct behavior per the skill instructions."
+    }
+  ],
+  "pass_rate": 1.0,
+  "summary": "All assertions pass. Blueprint content is excellent and FigJam was attempted first (blocked by test environment permissions). Mermaid fallback was appropriate."
+}

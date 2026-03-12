@@ -1,0 +1,11 @@
+{
+  "eval_id": 1,
+  "eval_name": "blueprint-figjam",
+  "prompt": "I just finished a discovery call with Bright Smile Dental, a dental clinic in Sydney. Here are the key points:\n\n- They're a 3-dentist practice in Parramatta, open Mon-Sat 8am-6pm\n- Currently missing 30% of inbound calls during peak hours (10am-2pm)\n- Receptionist is overwhelmed — can't answer phones and handle walk-ins simultaneously\n- They want an AI receptionist to handle: appointment booking, rescheduling, general inquiries (hours, location, services), and after-hours calls\n- They use Google Calendar for scheduling and have a basic website\n- Budget is flexible but they want to see ROI within 3 months\n- Key contact: Dr. Sarah Chen (owner) and Maria (office manager)\n- They mentioned competitors are using chatbots but they want voice specifically\n- Insurance questions come up a lot — they accept most major providers\n- They need the AI to sound warm and professional, not robotic\n\nCreate a blueprint for this project.",
+  "assertions": [
+    {"text": "Blueprint contains a discovery summary with pain points and goals extracted from the brief", "type": "contains"},
+    {"text": "Blueprint contains numbered phases with sub-tasks", "type": "contains"},
+    {"text": "Called generate_diagram or mcp__claude_ai_Figma__generate_diagram to create the flowchart, NOT defaulting to Mermaid", "type": "tool_call"},
+    {"text": "Did not output a Mermaid diagram as the primary flowchart (Mermaid only acceptable if FigJam explicitly errored)", "type": "not_contains"}
+  ]
+}

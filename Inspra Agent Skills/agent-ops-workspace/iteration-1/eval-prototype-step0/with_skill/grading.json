@@ -1,0 +1,34 @@
+{
+  "eval_id": 2,
+  "eval_name": "prototype-step0",
+  "run_type": "with_skill",
+  "expectations": [
+    {
+      "text": "Explicitly asks the user to confirm platform (Vapi/Livekit) before building",
+      "passed": false,
+      "evidence": "The agent proceeded to build the system prompt and JSON config without first asking the user to confirm the platform. The output files (SystemPrompt .md and AssistantConfig .json) were generated directly."
+    },
+    {
+      "text": "Explicitly asks the user to confirm direction (inbound/outbound/both) before building",
+      "passed": false,
+      "evidence": "The agent did not ask for confirmation of direction before building. It assumed inbound based on the prompt and proceeded."
+    },
+    {
+      "text": "Does NOT immediately start building without asking — waits for user confirmation",
+      "passed": false,
+      "evidence": "The agent immediately started building without pausing for Step 0 confirmation. Two output files were generated directly."
+    },
+    {
+      "text": "References .docx output for system prompt and/or demo instructions",
+      "passed": false,
+      "evidence": "System prompt was saved as .md file, not .docx. The skill specifies .docx output but the agent produced markdown."
+    },
+    {
+      "text": "References the Guardrails section or 35 non-negotiable rules when discussing system prompt",
+      "passed": true,
+      "evidence": "The system prompt includes a comprehensive [Guardrails] section with all 35 rules across 10 categories (Ethical Conduct, Disclosure & Transparency, Identity & Integrity, Safety & Emergency, Professional Boundaries, Data Privacy & Security, Abusive & Off-Topic Behaviour, Escalation Discipline, Call List & Consent, Confirmation Discipline, Call Conduct)."
+    }
+  ],
+  "pass_rate": 0.2,
+  "summary": "Critical failure: Step 0 (platform/direction confirmation) was completely skipped. The agent built immediately. System prompt content is excellent (guardrails included) but output format (.md instead of .docx) and the missing confirmation step are major issues."
+}

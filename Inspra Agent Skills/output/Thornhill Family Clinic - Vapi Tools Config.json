@@ -1,0 +1,173 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "check_availability",
+      "description": "Check available appointment slots for a specific date and optionally a specific doctor or service.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "The requested date in YYYY-MM-DD format"
+          },
+          "doctor": {
+            "type": "string",
+            "description": "Doctor name if the caller has a preference"
+          },
+          "service_type": {
+            "type": "string",
+            "description": "Type of service requested, e.g. general consultation, long appointment, occupational health, allied health"
+          }
+        },
+        "required": ["date"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "book_appointment",
+      "description": "Book an appointment for a patient. Requires patient name, date, time, and service type.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "patient_name": {
+            "type": "string",
+            "description": "Full name of the patient"
+          },
+          "date": {
+            "type": "string",
+            "description": "Appointment date in YYYY-MM-DD format"
+          },
+          "time": {
+            "type": "string",
+            "description": "Appointment time in HH:MM format"
+          },
+          "doctor": {
+            "type": "string",
+            "description": "Doctor name"
+          },
+          "service_type": {
+            "type": "string",
+            "description": "Type of consultation or service"
+          },
+          "is_long_appointment": {
+            "type": "boolean",
+            "description": "Whether this is a longer consultation"
+          },
+          "contact_number": {
+            "type": "string",
+            "description": "Patient contact number for reminders"
+          }
+        },
+        "required": ["patient_name", "date", "time"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "cancel_appointment",
+      "description": "Cancel an existing appointment. Must be at least 1 hour prior to the scheduled time.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "patient_name": {
+            "type": "string",
+            "description": "Full name of the patient"
+          },
+          "appointment_date": {
+            "type": "string",
+            "description": "Date of the appointment to cancel in YYYY-MM-DD format"
+          },
+          "appointment_time": {
+            "type": "string",
+            "description": "Time of the appointment to cancel in HH:MM format"
+          }
+        },
+        "required": ["patient_name"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "reschedule_appointment",
+      "description": "Reschedule an existing appointment to a new date and time.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "patient_name": {
+            "type": "string",
+            "description": "Full name of the patient"
+          },
+          "original_date": {
+            "type": "string",
+            "description": "Original appointment date in YYYY-MM-DD format"
+          },
+          "new_date": {
+            "type": "string",
+            "description": "New requested date in YYYY-MM-DD format"
+          },
+          "new_time": {
+            "type": "string",
+            "description": "New requested time in HH:MM format"
+          }
+        },
+        "required": ["patient_name", "new_date", "new_time"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "transfer_call",
+      "description": "Transfer the caller to a human staff member when needed.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "Who to transfer to: reception_staff, nurse, practice_manager"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Brief reason for the transfer"
+          }
+        },
+        "required": ["destination", "reason"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "log_call_outcome",
+      "description": "Log the outcome of every call before ending. Always call this tool before ending the conversation.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "outcome": {
+            "type": "string",
+            "enum": ["appointment_booked", "appointment_cancelled", "appointment_rescheduled", "enquiry_answered", "transferred_to_staff", "callback_requested", "no_action"],
+            "description": "Primary outcome of the call"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Brief summary of the call"
+          },
+          "patient_name": {
+            "type": "string",
+            "description": "Patient name if provided"
+          },
+          "follow_up_required": {
+            "type": "boolean",
+            "description": "Whether a staff member needs to follow up"
+          }
+        },
+        "required": ["outcome", "summary"]
+      }
+    }
+  }
+]

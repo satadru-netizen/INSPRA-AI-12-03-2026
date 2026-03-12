@@ -1,0 +1,51 @@
+{
+  "skill_name": "agent-ops-suite",
+  "iteration": 1,
+  "timestamp": "2026-03-10T16:30:00Z",
+  "configurations": [
+    {
+      "name": "with_skill",
+      "pass_rate": {"mean": 0.567, "stddev": 0.416},
+      "time": {"mean": 71.7, "stddev": 10.4},
+      "tokens": {"mean": 53333, "stddev": 7638}
+    },
+    {
+      "name": "without_skill",
+      "pass_rate": {"mean": 0.500, "stddev": 0.500},
+      "time": {"mean": 36.7, "stddev": 23.6},
+      "tokens": {"mean": 26667, "stddev": 18930}
+    }
+  ],
+  "delta": {
+    "pass_rate": "+6.7%",
+    "time": "+35.0s",
+    "tokens": "+26666"
+  },
+  "evals": [
+    {
+      "eval_name": "blueprint-figjam",
+      "with_skill": {"pass_rate": 0.5, "assertions_passed": 2, "assertions_total": 4, "time": 60.0, "tokens": 45000},
+      "without_skill": {"pass_rate": 0.5, "assertions_passed": 2, "assertions_total": 4, "time": 45.0, "tokens": 35000},
+      "notes": "Both versions produced excellent blueprint content. Neither used FigJam MCP — both fell back to Mermaid. Skill's primary differentiator (FigJam) not triggered."
+    },
+    {
+      "eval_name": "prototype-step0",
+      "with_skill": {"pass_rate": 0.2, "assertions_passed": 1, "assertions_total": 5, "time": 75.0, "tokens": 55000},
+      "without_skill": {"pass_rate": 0.0, "assertions_passed": 0, "assertions_total": 5, "time": 10.0, "tokens": 5000},
+      "notes": "Critical: Step 0 (mandatory confirmation) was skipped by the with-skill agent. It built immediately. Guardrails content is excellent (1/5 passed). Baseline blocked by permissions."
+    },
+    {
+      "eval_name": "reports-docx",
+      "with_skill": {"pass_rate": 1.0, "assertions_passed": 5, "assertions_total": 5, "time": 80.0, "tokens": 60000},
+      "without_skill": {"pass_rate": 1.0, "assertions_passed": 5, "assertions_total": 5, "time": 55.0, "tokens": 40000},
+      "notes": "Both produced functional .docx reports. With-skill version has significantly better formatting (dark blue headers, shaded transcript excerpts, prominent summary score, Inspra branding)."
+    }
+  ],
+  "analyst_observations": [
+    "FigJam MCP assertion (blueprint) failed for both with-skill and without-skill — this suggests the skill instructions aren't strong enough to override the model's default Mermaid preference, OR the MCP tool wasn't available in the test environment.",
+    "Step 0 confirmation (prototype) is the biggest gap — the skill explicitly says MANDATORY but the agent skipped it entirely. This needs much stronger instruction framing.",
+    "Reports skill is the strongest performer — 5/5 assertions passed with excellent formatting. The skill instructions are working well here.",
+    "The prototype with-skill run produced .md instead of .docx despite the skill specifying .docx output — another instruction adherence issue.",
+    "Baseline comparison is partially inconclusive for prototype (permissions blocked) and limited for reports (both passed all assertions)."
+  ]
+}

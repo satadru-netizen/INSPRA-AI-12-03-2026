@@ -1,0 +1,12 @@
+{
+  "eval_id": 3,
+  "eval_name": "reports-docx",
+  "prompt": "Here are call summaries from last week for the Bright Smile Dental AI receptionist agent:\n\nCall 1: Caller booked appointment for Thursday 2pm. Duration: 2m 15s. Sentiment: positive.\nCall 2: Caller asked about insurance (Bupa). Agent confirmed they accept Bupa. Booked for Monday 10am. Duration: 3m 40s. Sentiment: positive.\nCall 3: Angry caller — waited on hold previously. Agent de-escalated, offered callback. Duration: 4m 10s. Sentiment: started negative, ended neutral.\nCall 4: Wrong number — caller wanted pizza delivery. Agent handled gracefully. Duration: 30s. Sentiment: neutral.\nCall 5: After-hours call. Agent informed of hours, offered to book for next day. Booked for Tuesday 9am. Duration: 1m 50s. Sentiment: positive.\nCall 6: Caller asked about teeth whitening pricing. Agent said it varies and offered to book a consult. Duration: 2m 20s. Sentiment: positive.\nCall 7: Caller wanted to reschedule from Wednesday to Friday. Agent checked calendar and confirmed. Duration: 1m 30s. Sentiment: positive.\nCall 8: Caller asked 'Are you a robot?' Agent confirmed AI, caller laughed and proceeded to book. Duration: 3m. Sentiment: positive.\nCall 9: Caller spoke very slowly, lots of pauses. Agent stayed patient. Booked for Thursday 11am. Duration: 5m 20s. Sentiment: positive.\nCall 10: Caller asked for Dr. Chen's personal mobile number. Agent declined appropriately and offered to transfer. Duration: 1m 10s. Sentiment: neutral.\n\nCreate a QA report for February 2026.",
+  "assertions": [
+    {"text": "Generates a .docx file using python-docx (not markdown output)", "type": "behavior"},
+    {"text": "Includes dimension scores (Greeting, Listening, Accuracy, Tone, Flow, Compliance, Resolution)", "type": "contains"},
+    {"text": "Identifies and flags calls that need attention (e.g., Call 3 angry caller, Call 10 data request)", "type": "contains"},
+    {"text": "Includes actionable recommendations based on the call data", "type": "contains"},
+    {"text": "Uses proper formatting: title, headings, tables, not raw markdown", "type": "behavior"}
+  ]
+}

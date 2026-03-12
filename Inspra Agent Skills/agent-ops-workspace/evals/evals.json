@@ -1,0 +1,46 @@
+{
+  "skill_name": "agent-ops-suite",
+  "evals": [
+    {
+      "id": 1,
+      "name": "blueprint-figjam",
+      "prompt": "I just finished a discovery call with Bright Smile Dental, a dental clinic in Sydney. Here are the key points:\n\n- They're a 3-dentist practice in Parramatta, open Mon-Sat 8am-6pm\n- Currently missing 30% of inbound calls during peak hours (10am-2pm)\n- Receptionist is overwhelmed — can't answer phones and handle walk-ins simultaneously\n- They want an AI receptionist to handle: appointment booking, rescheduling, general inquiries (hours, location, services), and after-hours calls\n- They use Google Calendar for scheduling and have a basic website\n- Budget is flexible but they want to see ROI within 3 months\n- Key contact: Dr. Sarah Chen (owner) and Maria (office manager)\n- They mentioned competitors are using chatbots but they want voice specifically\n- Insurance questions come up a lot — they accept most major providers\n- They need the AI to sound warm and professional, not robotic\n\nCreate a blueprint for this project.",
+      "expected_output": "A structured blueprint document with phases AND a FigJam flowchart created via generate_diagram MCP tool (not Mermaid fallback)",
+      "files": [],
+      "assertions": [
+        {"name": "has_discovery_summary", "type": "contains", "description": "Blueprint contains a discovery summary with pain points and goals extracted from the brief"},
+        {"name": "has_phase_breakdown", "type": "contains", "description": "Blueprint contains numbered phases with sub-tasks"},
+        {"name": "uses_figjam_mcp", "type": "tool_call", "description": "Called generate_diagram or mcp__claude_ai_Figma__generate_diagram to create the flowchart, NOT defaulting to Mermaid"},
+        {"name": "no_mermaid_default", "type": "not_contains", "description": "Did not output a Mermaid diagram as the primary flowchart (Mermaid only acceptable if FigJam explicitly errored)"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "prototype-step0",
+      "prompt": "I have the blueprint and call flowchart ready for Bright Smile Dental. The blueprint says it's an inbound receptionist agent on Vapi. Build the prototype agent for me.",
+      "expected_output": "Agent should ask to confirm platform (Vapi) and direction (inbound) BEFORE proceeding, even though the blueprint mentions it. Should then produce system prompt as .docx and demo instructions as .docx.",
+      "files": [],
+      "assertions": [
+        {"name": "asks_platform_confirmation", "type": "contains", "description": "Explicitly asks the user to confirm platform (Vapi/Livekit) before building"},
+        {"name": "asks_direction_confirmation", "type": "contains", "description": "Explicitly asks the user to confirm direction (inbound/outbound/both) before building"},
+        {"name": "does_not_skip_step0", "type": "behavior", "description": "Does NOT immediately start building without asking — waits for user confirmation"},
+        {"name": "mentions_docx_output", "type": "contains", "description": "References .docx output for system prompt and/or demo instructions"},
+        {"name": "references_guardrails", "type": "contains", "description": "References the Guardrails section or 35 non-negotiable rules when discussing system prompt"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "reports-docx",
+      "prompt": "Here are call summaries from last week for the Bright Smile Dental AI receptionist agent:\n\nCall 1: Caller booked appointment for Thursday 2pm. Duration: 2m 15s. Sentiment: positive.\nCall 2: Caller asked about insurance (Bupa). Agent confirmed they accept Bupa. Booked for Monday 10am. Duration: 3m 40s. Sentiment: positive.\nCall 3: Angry caller — waited on hold previously. Agent de-escalated, offered callback. Duration: 4m 10s. Sentiment: started negative, ended neutral.\nCall 4: Wrong number — caller wanted pizza delivery. Agent handled gracefully. Duration: 30s. Sentiment: neutral.\nCall 5: After-hours call. Agent informed of hours, offered to book for next day. Booked for Tuesday 9am. Duration: 1m 50s. Sentiment: positive.\nCall 6: Caller asked about teeth whitening pricing. Agent said it varies and offered to book a consult. Duration: 2m 20s. Sentiment: positive.\nCall 7: Caller wanted to reschedule from Wednesday to Friday. Agent checked calendar and confirmed. Duration: 1m 30s. Sentiment: positive.\nCall 8: Caller asked 'Are you a robot?' Agent confirmed AI, caller laughed and proceeded to book. Duration: 3m. Sentiment: positive.\nCall 9: Caller spoke very slowly, lots of pauses. Agent stayed patient. Booked for Thursday 11am. Duration: 5m 20s. Sentiment: positive.\nCall 10: Caller asked for Dr. Chen's personal mobile number. Agent declined appropriately and offered to transfer. Duration: 1m 10s. Sentiment: neutral.\n\nCreate a QA report for February 2026.",
+      "expected_output": "A QA report generated as .docx using python-docx, with scoring rubric applied, flagged calls identified, and professional formatting",
+      "files": [],
+      "assertions": [
+        {"name": "generates_docx", "type": "behavior", "description": "Generates a .docx file using python-docx (not markdown output)"},
+        {"name": "has_scoring", "type": "contains", "description": "Includes dimension scores (Greeting, Listening, Accuracy, Tone, Flow, Compliance, Resolution)"},
+        {"name": "flags_problematic_calls", "type": "contains", "description": "Identifies and flags calls that need attention (e.g., Call 3 angry caller, Call 10 data request)"},
+        {"name": "has_recommendations", "type": "contains", "description": "Includes actionable recommendations based on the call data"},
+        {"name": "professional_format", "type": "behavior", "description": "Uses proper formatting: title, headings, tables, not raw markdown"}
+      ]
+    }
+  ]
+}

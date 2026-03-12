@@ -1,0 +1,47 @@
+{
+  "name": "Bright Smile Dental — Receptionist Agent",
+  "metadata": {
+    "client": "Bright Smile Dental",
+    "agent_type": "inbound_receptionist",
+    "platform": "vapi",
+    "built_by": "Inspra AI",
+    "version": "1.0.0",
+    "build_date": "2026-03-10"
+  },
+  "model": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "temperature": 0.7,
+    "maxTokens": 500,
+    "systemMessage": "See BrightSmileDental_SystemPrompt_ReceptionistAgent.docx for full system prompt."
+  },
+  "voice": {
+    "provider": "deepgram",
+    "voiceId": "asteria",
+    "notes": "Calm and patient — ideal for dental reception. Handles medical terminology well."
+  },
+  "transcriber": {
+    "provider": "deepgram",
+    "model": "nova-2",
+    "language": "en-US"
+  },
+  "firstMessage": "Hi there, thanks for calling Bright Smile Dental! This is Sophia. Just to let you know, this call may be recorded for quality purposes. How can I help you today?",
+  "endCallMessage": "Thanks so much for calling Bright Smile Dental. Have a wonderful day!",
+  "endCallPhrases": [
+    "goodbye",
+    "have a great day",
+    "talk soon",
+    "bye bye",
+    "take care"
+  ],
+  "silenceTimeoutSeconds": 30,
+  "maxDurationSeconds": 600,
+  "backgroundSound": "office",
+  "serverUrl": "{{VAPI_SERVER_URL}}",
+  "serverUrlSecret": "{{VAPI_SERVER_SECRET}}",
+  "analysisPlan": {
+    "summaryPrompt": "Summarize this dental office call including: caller name, reason for calling, appointment details (if any), and outcome.",
+    "structuredDataPrompt": "Extract: caller_name, caller_phone, call_reason (appointment/inquiry/emergency/other), appointment_date, appointment_time, dentist_requested, outcome (booked/rescheduled/cancelled/transferred/info_only)",
+    "successEvaluationPrompt": "Evaluate whether the caller's request was fully handled. Did the agent book/reschedule/cancel correctly? Was the caller satisfied?"
+  }
+}

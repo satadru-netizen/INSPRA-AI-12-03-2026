@@ -1,0 +1,34 @@
+{
+  "eval_id": 3,
+  "eval_name": "reports-docx",
+  "run_type": "with_skill",
+  "expectations": [
+    {
+      "text": "Generates a .docx file using python-docx (not markdown output)",
+      "passed": true,
+      "evidence": "Generated generate_qa_report.py which uses python-docx to produce BrightSmileDental_QAReport_Feb2026.docx. Script ran successfully and produced the .docx file."
+    },
+    {
+      "text": "Includes dimension scores (Greeting, Listening, Accuracy, Tone, Flow, Compliance, Resolution)",
+      "passed": true,
+      "evidence": "All 7 dimensions present with weighted scoring: Greeting & ID (10%), Listening (15%), Accuracy (20%), Tone & Empathy (15%), Flow & Efficiency (15%), Compliance (10%), Resolution (15%). Per-call and aggregate scores calculated."
+    },
+    {
+      "text": "Identifies and flags calls that need attention (e.g., Call 3 angry caller, Call 10 data request)",
+      "passed": true,
+      "evidence": "Dedicated 'Calls Requiring Closer Attention' section covers Call #3 (de-escalation), Call #6 (pricing inquiry), and Call #10 (personal info request) with detailed analysis, transcript excerpts, and recommended improvements."
+    },
+    {
+      "text": "Includes actionable recommendations based on the call data",
+      "passed": true,
+      "evidence": "5 specific, actionable recommendations: (1) Add price ranges to knowledge base, (2) Earlier callback offer in de-escalation, (3) Softer framing for declining requests, (4) Post-call confirmation tracking, (5) After-hours FAQ capability."
+    },
+    {
+      "text": "Uses proper formatting: title, headings, tables, not raw markdown",
+      "passed": true,
+      "evidence": "Full python-docx formatting: centered 16pt title, 13pt section headings, Table Grid style with dark blue header shading and white text, bordered/shaded transcript excerpts (D9E2F3), Calibri 11pt body, prominent 20pt summary score, footer with 'Prepared by Inspra AI'."
+    }
+  ],
+  "pass_rate": 1.0,
+  "summary": "Excellent. All assertions pass. The QA report is comprehensive, well-formatted, and follows the skill template precisely with proper .docx output."
+}

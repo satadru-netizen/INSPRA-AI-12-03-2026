@@ -1,0 +1,165 @@
+{
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "book_meeting",
+        "description": "Book a consultation meeting with the Direct Eight team. Use when the prospect agrees to a meeting. Checks calendar availability and creates a booking with a Zoom link.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "prospect_name": {
+              "type": "string",
+              "description": "Full name of the prospect"
+            },
+            "prospect_email": {
+              "type": "string",
+              "description": "Email address of the prospect (if provided)"
+            },
+            "preferred_date": {
+              "type": "string",
+              "description": "Preferred date for the meeting in YYYY-MM-DD format"
+            },
+            "preferred_time": {
+              "type": "string",
+              "description": "Preferred time for the meeting in HH:MM format (24hr, AEST)"
+            },
+            "notes": {
+              "type": "string",
+              "description": "Any relevant notes about the prospect's needs or pain points discovered during the call"
+            }
+          },
+          "required": ["prospect_name", "preferred_date", "preferred_time"]
+        }
+      },
+      "server": {
+        "url": "{{WEBHOOK_URL}}/book-meeting",
+        "timeoutSeconds": 20
+      },
+      "messages": [
+        {
+          "type": "request-start",
+          "content": "Let me check what's available for you."
+        },
+        {
+          "type": "request-complete",
+          "content": "Perfect, you're all booked in. You'll receive a calendar invite shortly with the Zoom link."
+        },
+        {
+          "type": "request-failed",
+          "content": "I'm having a little trouble with the calendar right now. Let me make sure someone from the team follows up with you to get that locked in."
+        }
+      ]
+    },
+    {
+      "type": "transferCall",
+      "function": {
+        "name": "transfer_call",
+        "description": "Transfer the call live to the Direct Eight sales team. Use when the prospect is very interested and wants to speak to someone immediately.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "reason": {
+              "type": "string",
+              "description": "Brief reason for the transfer"
+            }
+          },
+          "required": ["reason"]
+        }
+      },
+      "destinations": [
+        {
+          "type": "number",
+          "number": "+61425125806",
+          "message": "Hi, I have a prospect on the line who's interested in Direct Eight's commercial cleaning services. Transferring now.",
+          "description": "Direct Eight team — hot lead transfer"
+        }
+      ],
+      "messages": [
+        {
+          "type": "request-start",
+          "content": "Let me connect you with the team right now — one moment."
+        },
+        {
+          "type": "request-failed",
+          "content": "It looks like the team's currently unavailable. Let me make sure someone calls you back shortly instead."
+        }
+      ]
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "log_callback",
+        "description": "Log a callback request and notify the Direct Eight team via email. Use when the prospect wants a human to call them back rather than booking a meeting or being transferred.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "prospect_name": {
+              "type": "string",
+              "description": "Full name of the prospect"
+            },
+            "prospect_phone": {
+              "type": "string",
+              "description": "Phone number to call back on"
+            },
+            "preferred_callback_time": {
+              "type": "string",
+              "description": "When the prospect wants to be called back (e.g., 'tomorrow morning', 'after 2pm')"
+            },
+            "reason": {
+              "type": "string",
+              "description": "Brief context on what the prospect is interested in"
+            }
+          },
+          "required": ["prospect_name", "prospect_phone"]
+        }
+      },
+      "server": {
+        "url": "{{WEBHOOK_URL}}/log-callback",
+        "timeoutSeconds": 10
+      },
+      "messages": [
+        {
+          "type": "request-start",
+          "content": "Let me make a note of that for you."
+        },
+        {
+          "type": "request-complete",
+          "content": "Done — someone from the Direct Eight team will give you a call shortly."
+        },
+        {
+          "type": "request-failed",
+          "content": "I've noted your details. The team will be in touch soon."
+        }
+      ]
+    },
+    {
+      "type": "endCall",
+      "function": {
+        "name": "end_call",
+        "description": "End the call gracefully. Use after completing the closing step, after the prospect requests removal from the list, or after handling abusive behaviour.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "outcome": {
+              "type": "string",
+              "enum": ["meeting_booked", "transferred", "callback_requested", "not_interested", "wrong_person", "do_not_call", "no_answer", "voicemail", "abusive"],
+              "description": "The outcome of the call"
+            },
+            "notes": {
+              "type": "string",
+              "description": "Brief summary of the call"
+            }
+          },
+          "required": ["outcome"]
+        }
+      },
+      "messages": [
+        {
+          "type": "request-complete",
+          "content": "Thanks so much for your time. Have a great day!"
+        }
+      ]
+    }
+  ]
+}

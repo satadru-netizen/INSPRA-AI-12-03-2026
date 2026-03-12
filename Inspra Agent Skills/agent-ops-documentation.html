@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspra AI — Agent Ops Skills Documentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --green: #35B611;
+            --green-light: #4AE020;
+            --green-dark: #2A9E0D;
+            --bg-dark: #060606;
+            --bg-card: #0F0F0F;
+            --bg-card-hover: #151515;
+            --bg-section: #0A0A0A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+            --text-muted: #666666;
+            --border: #1A1A1A;
+            --border-light: #252525;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(6, 6, 6, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-area img {
+            height: 32px;
+        }
+
+        .logo-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--border-light);
+        }
+
+        .logo-subtitle {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .header-badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--green);
+            background: rgba(53, 182, 17, 0.1);
+            border: 1px solid rgba(53, 182, 17, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 140px 40px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(53, 182, 17, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-overline {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #A0A0A0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            padding: 32px 0;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Principle Banner */
+        .principle-banner {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            padding: 24px 32px;
+            background: linear-gradient(135deg, rgba(53, 182, 17, 0.08) 0%, rgba(53, 182, 17, 0.02) 100%);
+            border: 1px solid rgba(53, 182, 17, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .principle-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .principle-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .principle-text em {
+            color: var(--green);
+            font-style: normal;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        .nav-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 40px;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .nav-item .nav-number {
+            display: block;
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 40px;
+        }
+
+        .section-header {
+            margin-bottom: 48px;
+        }
+
+        .section-overline {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* Flow Diagram */
+        .flow-diagram {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            overflow-x: auto;
+        }
+
+        .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .flow-node {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .flow-orchestrator {
+            background: rgba(53, 182, 17, 0.15);
+            border: 1px solid rgba(53, 182, 17, 0.3);
+            color: var(--green);
+            padding: 14px 28px;
+            font-size: 14px;
+        }
+
+        .flow-phase1 { background: rgba(59, 130, 246, 0.12); border: 1px solid rgba(59, 130, 246, 0.25); color: #60A5FA; }
+        .flow-phase2 { background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.25); color: #C084FC; }
+        .flow-phase3 { background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.25); color: #F472B6; }
+        .flow-phase4 { background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.25); color: #FBBF24; }
+
+        .flow-arrow {
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        .flow-arrow-down {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 18px;
+            margin: 8px 0;
+        }
+
+        .flow-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: -8px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Skill Cards */
+        .skills-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .skill-card:hover {
+            border-color: var(--border-light);
+        }
+
+        .skill-card-header {
+            padding: 32px 36px 24px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            cursor: pointer;
+        }
+
+        .skill-card-left {
+            flex: 1;
+        }
+
+        .skill-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .skill-number {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--bg-dark);
+            background: var(--green);
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .skill-phase-badge {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.05);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .skill-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .skill-name code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--green);
+            font-size: 14px;
+            font-weight: 500;
+            background: rgba(53, 182, 17, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 12px;
+            vertical-align: middle;
+        }
+
+        .skill-description {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        .skill-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            margin-top: 8px;
+            font-size: 18px;
+        }
+
+        .skill-toggle:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .skill-card.open .skill-toggle {
+            transform: rotate(180deg);
+        }
+
+        .skill-card-body {
+            display: none;
+            padding: 0 36px 36px;
+            border-top: 1px solid var(--border);
+            margin-top: 0;
+        }
+
+        .skill-card.open .skill-card-body {
+            display: block;
+        }
+
+        /* Inner sections */
+        .inner-section {
+            margin-top: 28px;
+        }
+
+        .inner-section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--green);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .inner-section-title::before {
+            content: '';
+            width: 3px;
+            height: 14px;
+            background: var(--green);
+            border-radius: 2px;
+        }
+
+        /* Tables */
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .doc-table th {
+            text-align: left;
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.03);
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-table td {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+
+        .doc-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .doc-table td:first-child {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            line-height: 1.7;
+            color: #C8C8C8;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .code-block .comment { color: #666; }
+        .code-block .keyword { color: var(--green); }
+        .code-block .string { color: #FBBF24; }
+
+        /* Steps */
+        .step-list {
+            list-style: none;
+            counter-reset: step;
+        }
+
+        .step-list li {
+            counter-increment: step;
+            padding: 12px 0 12px 48px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .step-list li:last-child {
+            border-bottom: none;
+        }
+
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 28px;
+            height: 28px;
+            background: rgba(53, 182, 17, 0.1);
+            border: 1px solid rgba(53, 182, 17, 0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .step-list li strong {
+            color: var(--text-primary);
+        }
+
+        /* Trigger tags */
+        .trigger-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .trigger-tag {
+            font-size: 11px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--text-secondary);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        /* File tree */
+        .file-tree {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            padding: 16px 20px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .file-tree .folder { color: #60A5FA; }
+        .file-tree .file { color: var(--text-secondary); }
+        .file-tree .desc { color: var(--text-muted); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .footer-logo {
+            height: 28px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .nav-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-bar { gap: 24px; flex-wrap: wrap; }
+            .hero, .architecture, .skills-section, .nav-section { padding-left: 20px; padding-right: 20px; }
+            .skill-card-header { padding: 20px 24px 16px; }
+            .skill-card-body { padding: 0 24px 24px; }
+            .header { padding: 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="logo-area">
+        <img src="https://inspra.ai/wp-content/uploads/2024/02/Property-1Light@2x.svg" alt="Inspra AI">
+        <div class="logo-divider"></div>
+        <span class="logo-subtitle">Agent Ops Documentation</span>
+    </div>
+    <span class="header-badge">v1.0 &mdash; INTERNAL</span>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-overline">Agent Operations Suite</div>
+    <h1>Voice Agent Delivery,<br><span>End to End.</span></h1>
+    <p class="hero-description">
+        Ten purpose-built skills that power Inspra AI's voice agent lifecycle &mdash; from client discovery to post-launch QA. Document first, automate second.
+    </p>
+
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-number">10</div>
+            <div class="stat-label">Skills</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Project Phases</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">30+</div>
+            <div class="stat-label">Test Scenarios</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">7</div>
+            <div class="stat-label">QA Dimensions</div>
+        </div>
+    </div>
+
+    <div class="principle-banner">
+        <div class="principle-icon">&#9670;</div>
+        <div class="principle-text"><em>Document first, automate second.</em> Every phase produces a document or artifact before any automation runs.</div>
+    </div>
+</section>
+
+<!-- Quick Nav -->
+<section class="nav-section">
+    <div class="nav-grid">
+        <a class="nav-item" onclick="openSkill(0)"><span class="nav-number">00</span>Orchestrator</a>
+        <a class="nav-item" onclick="openSkill(1)"><span class="nav-number">01</span>Blueprint</a>
+        <a class="nav-item" onclick="openSkill(2)"><span class="nav-number">02</span>Flowchart</a>
+        <a class="nav-item" onclick="openSkill(3)"><span class="nav-number">03</span>Prototype</a>
+        <a class="nav-item" onclick="openSkill(4)"><span class="nav-number">04</span>Tools</a>
+        <a class="nav-item" onclick="openSkill(5)"><span class="nav-number">05</span>Testing</a>
+        <a class="nav-item" onclick="openSkill(6)"><span class="nav-number">06</span>MoM</a>
+        <a class="nav-item" onclick="openSkill(7)"><span class="nav-number">07</span>n8n</a>
+        <a class="nav-item" onclick="openSkill(8)"><span class="nav-number">08</span>Reports</a>
+        <a class="nav-item" onclick="openSkill(9)"><span class="nav-number">09</span>Prompt Analysis</a>
+    </div>
+</section>
+
+<!-- Architecture -->
+<section class="architecture">
+    <div class="section-header">
+        <div class="section-overline">Architecture</div>
+        <h2 class="section-title">How It All Connects</h2>
+        <p class="section-subtitle">The orchestrator routes to the right skill based on project phase. Sub-skills can also be invoked directly.</p>
+    </div>
+
+    <div class="flow-diagram">
+        <div class="flow-row">
+            <div class="flow-node flow-orchestrator">agent-ops (Orchestrator)</div>
+        </div>
+        <div class="flow-arrow-down">&#8595;</div>
+        <div class="flow-label">Routes to phase</div>
+
+        <div class="flow-row">
+            <div class="flow-node flow-phase1">Blueprint</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-node flow-phase1">Flowchart</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-node flow-phase2">Prototype</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-node flow-phase2">Tools</div>
+            <span class="flow-arrow">&#8594;</span>
+            <div class="flow-node flow-phase3">Testing</div>
+        </div>
+        <div class="flow-arrow-down">&#8595;</div>
+        <div class="flow-label">Go Live &#8594; Client Approval</div>
+
+        <div class="flow-row">
+            <div class="flow-node flow-phase4">Reports</div>
+            <span class="flow-arrow">&#8592;</span>
+            <div class="flow-node flow-phase4">Prompt Analysis</div>
+            <span class="flow-arrow">&#8592;</span>
+            <div class="flow-node flow-phase3">Post-Live Testing</div>
+        </div>
+
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: center; gap: 24px;">
+            <div class="flow-node" style="background: rgba(255,255,255,0.04); border: 1px dashed var(--border-light); color: var(--text-muted);">MoM &mdash; any phase</div>
+            <div class="flow-node" style="background: rgba(255,255,255,0.04); border: 1px dashed var(--border-light); color: var(--text-muted);">n8n &mdash; any phase</div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Detail -->
+<section class="skills-section" id="skills">
+    <div class="section-header">
+        <div class="section-overline">Skills Reference</div>
+        <h2 class="section-title">Complete Skill Documentation</h2>
+        <p class="section-subtitle">Click any skill to expand full documentation including inputs, outputs, build process, and usage examples.</p>
+    </div>
+
+    <!-- 00: Orchestrator -->
+    <div class="skill-card" id="skill-0">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">00</div>
+                    <span class="skill-phase-badge">Orchestrator</span>
+                </div>
+                <div class="skill-name">Agent Ops <code>agent-ops</code></div>
+                <div class="skill-description">The central router for the entire project lifecycle. Identifies which phase you're in and directs to the right sub-skill.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">What It Does</div>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.7;">
+                    The orchestrator is the entry point. When you mention a project, phase, or ask "what's next?", it captures project metadata (client name, agent type, current phase) and routes you to the correct sub-skill. It also tracks progress across phases and suggests the next logical step.
+                </p>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Trigger Phrases</div>
+                <div class="trigger-tags">
+                    <span class="trigger-tag">"what phase are we in?"</span>
+                    <span class="trigger-tag">"new client project"</span>
+                    <span class="trigger-tag">"what's next?"</span>
+                    <span class="trigger-tag">"project kickoff"</span>
+                    <span class="trigger-tag">"go-live checklist"</span>
+                </div>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Phase Routing Table</div>
+                <table class="doc-table">
+                    <tr><th>Phase</th><th>Routes To</th><th>When</th></tr>
+                    <tr><td>Discovery</td><td>agent-ops-blueprint</td><td>New project, client onboarding</td></tr>
+                    <tr><td>Call Flow</td><td>agent-ops-flowchart</td><td>Designing conversation logic</td></tr>
+                    <tr><td>Build</td><td>agent-ops-prototype</td><td>Creating the voice agent</td></tr>
+                    <tr><td>Tools</td><td>agent-ops-tools</td><td>Adding integrations</td></tr>
+                    <tr><td>Testing</td><td>agent-ops-testing</td><td>Pre or post-live QA</td></tr>
+                    <tr><td>Meeting</td><td>agent-ops-mom</td><td>Documenting meetings</td></tr>
+                    <tr><td>Automation</td><td>agent-ops-n8n</td><td>Backend workflows</td></tr>
+                    <tr><td>Reports</td><td>agent-ops-reports</td><td>Performance / QA reports</td></tr>
+                    <tr><td>Prompt Review</td><td>agent-ops-prompt-analysis</td><td>System prompt optimization</td></tr>
+                </table>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">File Structure</div>
+                <div class="file-tree">
+<span class="folder">agent-ops/</span>
+  <span class="file">SKILL.md</span> <span class="desc">&larr; Orchestrator logic + routing</span>
+  <span class="folder">references/</span>
+    <span class="file">phases.md</span> <span class="desc">&larr; Phase definitions</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 01: Blueprint -->
+    <div class="skill-card" id="skill-1">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">01</div>
+                    <span class="skill-phase-badge">Discovery</span>
+                </div>
+                <div class="skill-name">Blueprint <code>agent-ops-blueprint</code></div>
+                <div class="skill-description">Transforms discovery call transcripts or project briefs into structured blueprint documents with Figma flowcharts.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">Inputs Accepted</div>
+                <table class="doc-table">
+                    <tr><th>Input Type</th><th>Description</th></tr>
+                    <tr><td>Discovery transcript</td><td>Raw text from a client discovery call</td></tr>
+                    <tr><td>Step-by-step notes</td><td>Bullet points or structured brief</td></tr>
+                    <tr><td>Client requirements doc</td><td>Any format with project scope</td></tr>
+                </table>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Build Process</div>
+                <ol class="step-list">
+                    <li><strong>Extract discovery data</strong> &mdash; Pull pain points, goals, target audience, contacts, and tools from the input</li>
+                    <li><strong>Determine applicable phases</strong> &mdash; Evaluate which of the 8 phases apply (1-6 are core, 7-8 conditional)</li>
+                    <li><strong>Generate blueprint document</strong> &mdash; Structured markdown with phase breakdown, sub-tasks, dependencies, and timeline</li>
+                    <li><strong>Create Figma flowchart</strong> &mdash; Visual flow matching the Inspra template style via Figma MCP (Mermaid fallback)</li>
+                    <li><strong>Quality check</strong> &mdash; Every pain point maps to a goal, every goal maps to a phase, out-of-scope items documented</li>
+                </ol>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Output</div>
+                <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 12px;">Markdown blueprint document + Figma flowchart diagram</p>
+                <div class="code-block"><span class="comment"># [Client Name] — AI [Agent Type] Agent Blueprint</span>
+<span class="keyword">Prepared by:</span> Inspra AI
+<span class="keyword">Date:</span> [Date]
+
+<span class="comment">## Discovery Summary</span>
+<span class="comment">## Phase 1: Requirements & Knowledge Base</span>
+<span class="comment">## Phase 2: Data & List Building</span>
+<span class="comment">## ... (each applicable phase)</span>
+<span class="comment">## Timeline & Dependencies</span>
+<span class="comment">## Out of Scope</span>
+<span class="comment">## Next Steps</span></div>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Trigger Phrases</div>
+                <div class="trigger-tags">
+                    <span class="trigger-tag">"create a blueprint"</span>
+                    <span class="trigger-tag">"scope this project"</span>
+                    <span class="trigger-tag">"here's the discovery call transcript"</span>
+                    <span class="trigger-tag">"new client engagement"</span>
+                </div>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">File Structure</div>
+                <div class="file-tree">
+<span class="folder">agent-ops-blueprint/</span>
+  <span class="file">SKILL.md</span> <span class="desc">&larr; Extraction logic + output format</span>
+  <span class="folder">references/</span>
+    <span class="file">template-structure.md</span> <span class="desc">&larr; 8-phase template with sub-tasks</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 02: Flowchart -->
+    <div class="skill-card" id="skill-2">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">02</div>
+                    <span class="skill-phase-badge">Design</span>
+                </div>
+                <div class="skill-name">Flowchart <code>agent-ops-flowchart</code></div>
+                <div class="skill-description">Generates call flow diagrams and SIP networking architecture diagrams for voice agents.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">Two Diagram Types</div>
+                <table class="doc-table">
+                    <tr><th>Diagram</th><th>Purpose</th><th>When Generated</th></tr>
+                    <tr><td>Call Flowchart</td><td>Full conversation path: greeting &#8594; intent &#8594; handling &#8594; closing</td><td>All agents</td></tr>
+                    <tr><td>Networking Flowchart</td><td>SIP architecture: PSTN &#8594; provider &#8594; Vapi &#8594; agent routing</td><td>Inbound agents only</td></tr>
+                </table>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Build Process</div>
+                <ol class="step-list">
+                    <li><strong>Parse the blueprint or call script</strong> &mdash; Identify all intents, decision points, and tool interactions</li>
+                    <li><strong>Map conversation paths</strong> &mdash; Every intent gets a complete path with fallbacks. No dead ends.</li>
+                    <li><strong>Generate in Figma</strong> &mdash; Color-coded nodes: green (start/end), blue (agent action), yellow (decision), orange (tool call), red (error)</li>
+                    <li><strong>Add networking layer</strong> &mdash; For inbound: PSTN &#8594; SIP trunk &#8594; Vapi &#8594; agent router with failover paths</li>
+                </ol>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Design Rules</div>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8;">
+                    Every path has an exit. Max 2 retries on misunderstood intent before human transfer. Post-call automations shown. Decision diamonds labeled with actual conditions. Tool/function call points marked. Failover paths shown as dashed lines.
+                </p>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Trigger Phrases</div>
+                <div class="trigger-tags">
+                    <span class="trigger-tag">"create a call flow"</span>
+                    <span class="trigger-tag">"SIP diagram"</span>
+                    <span class="trigger-tag">"map the conversation"</span>
+                    <span class="trigger-tag">"networking flowchart"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 03: Prototype -->
+    <div class="skill-card" id="skill-3">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">03</div>
+                    <span class="skill-phase-badge">Build</span>
+                </div>
+                <div class="skill-name">Prototype <code>agent-ops-prototype</code></div>
+                <div class="skill-description">Builds production-ready voice agent prototypes with Vapi or Livekit, following Inspra AI's mandatory system prompt framework.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">Build Sequence</div>
+                <ol class="step-list">
+                    <li><strong>Architecture decision</strong> &mdash; Single agent or squad? Vapi or Livekit? Inbound, outbound, or both?</li>
+                    <li><strong>Model selection</strong> &mdash; LLM (GPT-4o / Claude Sonnet), voice (matched to brand tone), transcriber (Deepgram Nova-2 default)</li>
+                    <li><strong>System prompt development</strong> &mdash; Built from the mandatory framework in <code>references/system-prompt-framework.md</code></li>
+                    <li><strong>Configuration</strong> &mdash; Uses <code>create-assistant</code> skill for full Vapi setup</li>
+                    <li><strong>Phone number setup</strong> &mdash; Provision test number via <code>create-phone-number</code></li>
+                    <li><strong>Demo setup</strong> &mdash; Test number + web link + instructions for client</li>
+                </ol>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">System Prompt Framework (Mandatory)</div>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8; margin-bottom: 16px;">
+                    Every Inspra AI agent uses the same core framework. These defaults are non-negotiable:
+                </p>
+                <div class="code-block"><span class="keyword">[Identity]</span> — Name, role, personality <span class="comment">(customize)</span>
+<span class="keyword">[Context]</span> — Company, scope of calls <span class="comment">(customize)</span>
+<span class="keyword">[Conversation Principles]</span> — <span class="comment">DEFAULT: emotion first, answer first,</span>
+    <span class="comment">never interrupt, keep it short, one question at a time</span>
+<span class="keyword">[Voice Format Rules]</span> — <span class="comment">DEFAULT: dates, times, phone, currency spoken naturally</span>
+<span class="keyword">[Conversation Flow]</span> — Step-by-step with decision branches <span class="comment">(customize)</span>
+<span class="keyword">[Discovery]</span> — <span class="comment">DEFAULT: understand before offering</span>
+<span class="keyword">[Objection Handling]</span> — <span class="comment">DEFAULT: read behind the words, 2 attempts max</span>
+<span class="keyword">[Call Ending]</span> — <span class="comment">DEFAULT: close with intention, always log outcome</span>
+<span class="keyword">[Tools Available]</span> — Never announce tool names <span class="comment">(customize)</span>
+<span class="keyword">[Hard Compliance]</span> — <span class="comment">DEFAULT: no pressure, no fake urgency,</span>
+    <span class="comment">recording disclosure, abuse handling, off-topic limits</span>
+<span class="keyword">[Boundaries]</span> — <span class="comment">DEFAULT + customize per project</span></div>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">File Structure</div>
+                <div class="file-tree">
+<span class="folder">agent-ops-prototype/</span>
+  <span class="file">SKILL.md</span> <span class="desc">&larr; Build sequence + checklist</span>
+  <span class="folder">references/</span>
+    <span class="file">system-prompt-framework.md</span> <span class="desc">&larr; Mandatory prompt framework</span>
+    <span class="file">model-guide.md</span> <span class="desc">&larr; LLM, voice, transcriber selection</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 04: Tools -->
+    <div class="skill-card" id="skill-4">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">04</div>
+                    <span class="skill-phase-badge">Build</span>
+                </div>
+                <div class="skill-name">Tools <code>agent-ops-tools</code></div>
+                <div class="skill-description">Creates Vapi tool definitions, function call schemas, and API integrations that the voice agent calls during conversations.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">Common Tool Patterns</div>
+                <table class="doc-table">
+                    <tr><th>Tool</th><th>Type</th><th>Integrates With</th></tr>
+                    <tr><td>Calendar Booking</td><td>Function / API Request</td><td>Google Calendar, Outlook, Cal.com, GHL</td></tr>
+                    <tr><td>CRM Lookup / Update</td><td>API Request</td><td>GHL, HubSpot, Salesforce, JobAdder</td></tr>
+                    <tr><td>Transfer Call</td><td>Transfer Call Tool</td><td>SIP, phone number, another agent</td></tr>
+                    <tr><td>End Call</td><td>End Call Tool</td><td>Post-call webhook</td></tr>
+                    <tr><td>Knowledge Base Query</td><td>Function</td><td>Vector DB, FAQ API</td></tr>
+                    <tr><td>SMS / Email</td><td>API Request</td><td>Twilio, GHL, SendGrid</td></tr>
+                    <tr><td>Custom API</td><td>API Request</td><td>Project-specific endpoints</td></tr>
+                </table>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Design Rules</div>
+                <ol class="step-list">
+                    <li><strong>Name tools clearly</strong> &mdash; <code>check_available_slots</code> not <code>api_call_1</code>. The LLM decides when to call based on the name.</li>
+                    <li><strong>Write descriptions for the LLM</strong> &mdash; "Use this tool when the caller wants to book and you have their name and preferred time."</li>
+                    <li><strong>Minimize required params</strong> &mdash; Only what's truly needed. Fewer params = faster tool calls.</li>
+                    <li><strong>Handle failures</strong> &mdash; Every tool needs a fallback message: "I'm having trouble checking that right now..."</li>
+                    <li><strong>Test independently</strong> &mdash; Verify each tool with sample data before connecting to the agent.</li>
+                </ol>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Trigger Phrases</div>
+                <div class="trigger-tags">
+                    <span class="trigger-tag">"add calendar booking"</span>
+                    <span class="trigger-tag">"create function calls"</span>
+                    <span class="trigger-tag">"set up CRM integration"</span>
+                    <span class="trigger-tag">"add a transfer tool"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 05: Testing -->
+    <div class="skill-card" id="skill-5">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">05</div>
+                    <span class="skill-phase-badge">QA</span>
+                </div>
+                <div class="skill-name">Testing <code>agent-ops-testing</code></div>
+                <div class="skill-description">Comprehensive pre-live and post-live testing with 30+ scenarios across 10 categories including stress tests, patience checks, and objection handling.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">10 Test Categories</div>
+                <table class="doc-table">
+                    <tr><th>#</th><th>Category</th><th>What It Tests</th><th>Fail Signal</th></tr>
+                    <tr><td>1</td><td>Happy Path</td><td>Standard flows end-to-end</td><td>Any step fails</td></tr>
+                    <tr><td>2</td><td>Patience Check</td><td>Slow, confused, repetitive callers</td><td>Agent rushes or cuts off</td></tr>
+                    <tr><td>3</td><td>Off-Topic</td><td>Tangents, stories, controversial topics</td><td>Ignores or follows tangent too far</td></tr>
+                    <tr><td>4</td><td>Stress Test</td><td>Angry, demanding, rapid-fire</td><td>Gets defensive or gives up</td></tr>
+                    <tr><td>5</td><td>Objection Handling</td><td>Scam suspicion, not interested, price</td><td>Ignores objection or gets pushy</td></tr>
+                    <tr><td>6</td><td>Answer-First</td><td>Agent answers before pivoting</td><td>Deflects direct questions</td></tr>
+                    <tr><td>7</td><td>No-Interruption</td><td>Agent waits for caller to finish</td><td>Talks over caller</td></tr>
+                    <tr><td>8</td><td>Edge Cases</td><td>Silence, wrong number, AI detection</td><td>Crashes or freezes</td></tr>
+                    <tr><td>9</td><td>Compliance</td><td>Boundaries, disclosures, data handling</td><td>Shares unauthorized info</td></tr>
+                    <tr><td>10</td><td>Tool Failure</td><td>Graceful handling when APIs are down</td><td>No fallback offered</td></tr>
+                </table>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Scoring Rubric</div>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8;">
+                    Each test scores on 4 dimensions: <strong style="color: var(--text-primary);">Accuracy</strong> (1-4), <strong style="color: var(--text-primary);">Tone</strong> (1-4), <strong style="color: var(--text-primary);">Flow</strong> (1-4), <strong style="color: var(--text-primary);">Rules</strong> (1-4).
+                    Pass threshold: no dimension below 2, average &ge; 3.
+                </p>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">File Structure</div>
+                <div class="file-tree">
+<span class="folder">agent-ops-testing/</span>
+  <span class="file">SKILL.md</span> <span class="desc">&larr; Test framework + scoring rubric</span>
+  <span class="folder">references/</span>
+    <span class="file">test-scenarios.md</span> <span class="desc">&larr; 30+ ready-to-use caller scripts</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 06: MoM -->
+    <div class="skill-card" id="skill-6">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">06</div>
+                    <span class="skill-phase-badge">Any Phase</span>
+                </div>
+                <div class="skill-name">Minutes of Meeting <code>agent-ops-mom</code></div>
+                <div class="skill-description">Transforms meeting transcripts or raw notes into structured, actionable MoM documents with the Inspra AI format.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">Output Format</div>
+                <div class="code-block"><span class="keyword"># Inspra AI x [Client] — [Meeting Type]</span>
+<span class="string">Date:</span> [Date] | <span class="string">Duration:</span> ~[X] min | <span class="string">Attendees:</span> [Names]
+
+<span class="keyword">## Executive Summary</span>
+<span class="comment">3-5 sentences — purpose and outcomes</span>
+
+<span class="keyword">## Key Decisions</span>
+<span class="comment">Only firm decisions, not discussions</span>
+
+<span class="keyword">## Action Items</span>
+<span class="comment">| # | Action | Owner | Deadline |</span>
+<span class="comment">Each specific and assignable</span>
+
+<span class="keyword">## Open Questions</span>
+<span class="comment">Raised but not resolved</span>
+
+<span class="keyword">## Follow-up</span>
+<span class="comment">Next meeting, agenda, prep required</span></div>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Quality Rules</div>
+                <ol class="step-list">
+                    <li><strong>Action items are specific</strong> &mdash; "Tarique to share Drive link by Friday" not "Discuss integration"</li>
+                    <li><strong>Never invent information</strong> &mdash; If ambiguous, put it in Open Questions</li>
+                    <li><strong>Executive Summary is tight</strong> &mdash; A busy stakeholder gets the full picture in 30 seconds</li>
+                    <li><strong>Decisions vs discussions</strong> &mdash; Only confirmed agreements go in Key Decisions</li>
+                </ol>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Trigger Phrases</div>
+                <div class="trigger-tags">
+                    <span class="trigger-tag">"summarize this meeting"</span>
+                    <span class="trigger-tag">"create MoM"</span>
+                    <span class="trigger-tag">"meeting notes"</span>
+                    <span class="trigger-tag">"what were the action items?"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 07: n8n -->
+    <div class="skill-card" id="skill-7">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">07</div>
+                    <span class="skill-phase-badge">Any Phase</span>
+                </div>
+                <div class="skill-name">n8n Integration <code>agent-ops-n8n</code></div>
+                <div class="skill-description">Builds backend automation workflows for webhook processing, post-call actions, CRM sync, and notification pipelines.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">Common Workflow Patterns</div>
+                <table class="doc-table">
+                    <tr><th>Pattern</th><th>Trigger</th><th>Flow</th></tr>
+                    <tr><td>Post-Call Processing</td><td>Vapi end-of-call webhook</td><td>Extract transcript &#8594; Save to Sheets &#8594; Update CRM &#8594; Notify Slack</td></tr>
+                    <tr><td>Appointment Sync</td><td>Tool call webhook</td><td>Validate slot &#8594; Create event &#8594; Send SMS &#8594; Update CRM</td></tr>
+                    <tr><td>Lead Capture</td><td>End-of-call event</td><td>Extract info &#8594; Check CRM &#8594; Create/update lead &#8594; Assign rep</td></tr>
+                    <tr><td>Real-Time Support</td><td>Function call</td><td>Query DB &#8594; Format &#8594; Return to Vapi (&lt;3s)</td></tr>
+                    <tr><td>Daily Reports</td><td>Cron schedule</td><td>Query logs &#8594; Aggregate &#8594; Email report &#8594; Post to Slack</td></tr>
+                    <tr><td>Escalation</td><td>Transfer event</td><td>Capture context &#8594; Create ticket &#8594; Notify team</td></tr>
+                </table>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Build Process</div>
+                <ol class="step-list">
+                    <li><strong>Research first</strong> &mdash; Always reads n8n docs via MCP before building. Never assumes node configs.</li>
+                    <li><strong>Map the flow</strong> &mdash; Trigger &#8594; nodes &#8594; output. One workflow per concern.</li>
+                    <li><strong>Build incrementally</strong> &mdash; Start with trigger + first node, test, add nodes one at a time.</li>
+                    <li><strong>Error handling</strong> &mdash; Error branches for every external API call.</li>
+                    <li><strong>Output</strong> &mdash; Importable workflow JSON + setup doc + webhook URLs for Vapi.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- 08: Reports -->
+    <div class="skill-card" id="skill-8">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">08</div>
+                    <span class="skill-phase-badge">Post-Live</span>
+                </div>
+                <div class="skill-name">Reports <code>agent-ops-reports</code></div>
+                <div class="skill-description">Generates client-facing performance reports and QA audit reports with metrics, scoring, and actionable recommendations.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">Two Report Types</div>
+                <table class="doc-table">
+                    <tr><th>Report</th><th>Metrics</th></tr>
+                    <tr><td>Performance Report</td><td>Call volume, answer rate, booking rate, avg duration, sentiment, transfer rate, drop-off points, first-call resolution, response latency</td></tr>
+                    <tr><td>QA Report</td><td>7-dimension scoring (greeting, listening, accuracy, tone, flow, compliance, resolution) weighted to 100-point scale</td></tr>
+                </table>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">QA Scoring Dimensions</div>
+                <table class="doc-table">
+                    <tr><th>Dimension</th><th>Weight</th><th>Evaluates</th></tr>
+                    <tr><td>Greeting & ID</td><td>10%</td><td>Professional opening, self-identification</td></tr>
+                    <tr><td>Listening</td><td>15%</td><td>No interruptions, answers questions first</td></tr>
+                    <tr><td>Accuracy</td><td>20%</td><td>Correct info, no hallucinations</td></tr>
+                    <tr><td>Tone & Empathy</td><td>15%</td><td>Warm, patient, matched caller energy</td></tr>
+                    <tr><td>Flow & Efficiency</td><td>15%</td><td>Smooth progression, no loops</td></tr>
+                    <tr><td>Compliance</td><td>10%</td><td>Boundaries, disclosures</td></tr>
+                    <tr><td>Resolution</td><td>15%</td><td>Achieved objective or proper escalation</td></tr>
+                </table>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Trigger Phrases</div>
+                <div class="trigger-tags">
+                    <span class="trigger-tag">"create a performance report"</span>
+                    <span class="trigger-tag">"audit these calls"</span>
+                    <span class="trigger-tag">"how is the agent doing?"</span>
+                    <span class="trigger-tag">"QA report for the client"</span>
+                </div>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">File Structure</div>
+                <div class="file-tree">
+<span class="folder">agent-ops-reports/</span>
+  <span class="file">SKILL.md</span> <span class="desc">&larr; Report formats + metrics</span>
+  <span class="folder">references/</span>
+    <span class="file">qa-rubric.md</span> <span class="desc">&larr; Detailed 1-5 scoring criteria per dimension</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 09: Prompt Analysis -->
+    <div class="skill-card" id="skill-9">
+        <div class="skill-card-header" onclick="toggleCard(this)">
+            <div class="skill-card-left">
+                <div class="skill-badge-row">
+                    <div class="skill-number">09</div>
+                    <span class="skill-phase-badge">Post-Live</span>
+                </div>
+                <div class="skill-name">Prompt Analysis <code>agent-ops-prompt-analysis</code></div>
+                <div class="skill-description">Compares system prompts against real call transcripts to find gaps, hallucination risks, tone issues, and missing edge cases.</div>
+            </div>
+            <button class="skill-toggle">&#8964;</button>
+        </div>
+        <div class="skill-card-body">
+            <div class="inner-section">
+                <div class="inner-section-title">5-Part Analysis Framework</div>
+                <ol class="step-list">
+                    <li><strong>Transcript Gap Analysis</strong> &mdash; What the prompt says vs what actually happens. Produces a gap matrix showing handled/mishandled/missing scenarios.</li>
+                    <li><strong>Hallucination Audit</strong> &mdash; Finds moments where the agent stated information not grounded in the prompt, a tool response, or the caller's words.</li>
+                    <li><strong>Tone Consistency Check</strong> &mdash; Is tone consistent across caller types? Does it adapt appropriately? Any breaks?</li>
+                    <li><strong>Rule Adherence Check</strong> &mdash; For each rule in the prompt, verify compliance across all transcripts.</li>
+                    <li><strong>Structural Analysis</strong> &mdash; Clarity, conflicts, length (&lt;800 words), priority of rules, specificity.</li>
+                </ol>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Output</div>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8;">
+                    Gap matrix, hallucination flags with transcript references, tone issues with excerpts, rule violation table, structural issues, and a <strong style="color: var(--text-primary);">fully revised system prompt</strong> with changes highlighted and a change log citing specific transcript evidence.
+                </p>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Revision Rules</div>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8;">
+                    Every change must cite a specific transcript. No theoretical improvements. Remove instructions that add no value. Keep under 800 words. Test the revised prompt against the same transcripts that revealed the issues.
+                </p>
+            </div>
+
+            <div class="inner-section">
+                <div class="inner-section-title">Trigger Phrases</div>
+                <div class="trigger-tags">
+                    <span class="trigger-tag">"review this prompt"</span>
+                    <span class="trigger-tag">"the agent keeps doing X wrong"</span>
+                    <span class="trigger-tag">"improve the system prompt"</span>
+                    <span class="trigger-tag">"why is the agent saying X?"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <img src="https://inspra.ai/wp-content/uploads/2024/02/Property-1Light@2x.svg" alt="Inspra AI" class="footer-logo">
+    <p class="footer-text">Agent Ops Skills Suite v1.0 &mdash; Internal Documentation &mdash; Inspra AI &copy; 2026</p>
+</footer>
+
+<script>
+    function toggleCard(header) {
+        const card = header.closest('.skill-card');
+        card.classList.toggle('open');
+    }
+
+    function openSkill(index) {
+        const card = document.getElementById('skill-' + index);
+        if (card) {
+            // Close all others
+            document.querySelectorAll('.skill-card').forEach(c => c.classList.remove('open'));
+            // Open target
+            card.classList.add('open');
+            // Scroll to it
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+</script>
+
+</body>
+</html>

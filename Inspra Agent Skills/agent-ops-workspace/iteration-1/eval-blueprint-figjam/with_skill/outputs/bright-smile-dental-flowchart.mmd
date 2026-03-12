@@ -1,0 +1,73 @@
+flowchart LR
+    START(["Project Start"]):::greenNode
+
+    START --> DISC["Discovery Summary"]:::redNode
+    DISC --> PP1["30% missed calls at peak"]:::redLight
+    DISC --> PP2["Receptionist overload"]:::redLight
+    DISC --> PP3["No after-hours coverage"]:::redLight
+    DISC --> PP4["Repetitive inquiry volume"]:::redLight
+
+    DISC --> GOALS["Project Goals"]:::blueNode
+    GOALS --> G1["Reduce missed calls to near-zero"]:::blueLight
+    GOALS --> G2["Free receptionist capacity"]:::blueLight
+    GOALS --> G3["Automate booking via Google Calendar"]:::blueLight
+    GOALS --> G4["Handle general and insurance inquiries"]:::blueLight
+    GOALS --> G5["Warm professional voice"]:::blueLight
+    GOALS --> G6["ROI within 3 months"]:::blueLight
+
+    GOALS --> P1["Phase 1: Requirements and Knowledge Base"]:::blueNode
+    P1 --> P1A["Collect services, insurance, dentist profiles"]:::blueLight
+    P1 --> P1B["Document business rules and compliance"]:::blueLight
+    P1 --> P1C["Map call patterns and escalation rules"]:::blueLight
+
+    P1 --> P2["Phase 2: Data and Contact Database"]:::blueNode
+    P2 --> P2A["Import patient contacts"]:::blueLight
+    P2 --> P2B["Map Google Calendar structure"]:::blueLight
+    P2 --> P2C["Define new patient intake fields"]:::blueLight
+
+    P2 --> P3["Phase 3: Platform Setup"]:::orangeNode
+    P3 --> P3A["Google Calendar integration"]:::orangeLight
+    P3 --> P3B["SMS and email notifications"]:::orangeLight
+    P3 --> P3C["Call routing configuration"]:::orangeLight
+    P3 --> P3D["Phone number setup"]:::orangeLight
+
+    P3 --> P4["Phase 4: AI Voice Agent Development"]:::orangeNode
+    P4 --> P4A["System prompt - warm professional tone"]:::orangeLight
+    P4 --> P4B["Booking, rescheduling, cancellation flows"]:::orangeLight
+    P4 --> P4C["Insurance and general inquiry handling"]:::orangeLight
+    P4 --> P4D["After-hours and emergency routing"]:::orangeLight
+    P4 --> P4E["Demo environment setup"]:::orangeLight
+
+    P4 --> P5["Phase 5: Testing and QA"]:::orangeNode
+    P5 --> P5A["Simulate real call scenarios"]:::orangeLight
+    P5 --> P5B["End-to-end calendar testing"]:::orangeLight
+    P5 --> P5C["Demo to Dr. Chen and Maria"]:::orangeLight
+    P5 --> P5D["Iterate based on feedback"]:::orangeLight
+
+    P5 --> GATE{"Client Approval?"}:::yellowNode
+    GATE -->|"Yes"| P6["Phase 6: Deployment and Go-Live"]:::blueNode
+    GATE -->|"No"| P5
+
+    P6 --> P6A["Deploy to production phone system"]:::blueLight
+    P6 --> P6B["Staff briefing for Maria"]:::blueLight
+    P6 --> P6C["Monitor first 48 hours"]:::blueLight
+    P6 --> P6D["Weekly performance reviews"]:::blueLight
+
+    P6 --> ENDNODE(["Ongoing Support"]):::greenNode
+
+    ENDNODE --> FUTURE["Future Expansion"]:::purpleNode
+    FUTURE --> F1["Phase 7: Website Chatbot"]:::purpleLight
+    FUTURE --> F2["Outbound reminder calls"]:::purpleLight
+    FUTURE --> F3["Patient follow-up calls"]:::purpleLight
+    FUTURE --> F4["Multi-location support"]:::purpleLight
+
+    classDef greenNode fill:#22c55e,stroke:#16a34a,color:#fff
+    classDef redNode fill:#ef4444,stroke:#dc2626,color:#fff
+    classDef redLight fill:#f87171,stroke:#ef4444,color:#fff
+    classDef blueNode fill:#3b82f6,stroke:#2563eb,color:#fff
+    classDef blueLight fill:#93c5fd,stroke:#60a5fa,color:#000
+    classDef orangeNode fill:#f97316,stroke:#ea580c,color:#fff
+    classDef orangeLight fill:#fdba74,stroke:#f97316,color:#000
+    classDef yellowNode fill:#eab308,stroke:#ca8a04,color:#000
+    classDef purpleNode fill:#a855f7,stroke:#9333ea,color:#fff
+    classDef purpleLight fill:#c084fc,stroke:#a855f7,color:#fff

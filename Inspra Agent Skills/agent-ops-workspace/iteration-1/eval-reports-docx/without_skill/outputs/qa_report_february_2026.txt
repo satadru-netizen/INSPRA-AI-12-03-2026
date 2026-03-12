@@ -1,0 +1,238 @@
+================================================================================
+              QA REPORT — BRIGHT SMILE DENTAL AI RECEPTIONIST AGENT
+                              FEBRUARY 2026
+================================================================================
+
+Report Date:       10 March 2026
+Reporting Period:  February 2026 (Last Week Sample — 10 Calls)
+Agent Name:        Bright Smile Dental AI Receptionist
+Agent Type:        Inbound Voice AI
+Prepared By:       Inspra QA Team
+
+================================================================================
+1. EXECUTIVE SUMMARY
+================================================================================
+
+The Bright Smile Dental AI Receptionist handled 10 calls during the sampled
+period. Overall performance is STRONG. The agent demonstrated consistent
+professionalism, effective de-escalation, appropriate boundary enforcement, and
+reliable booking capabilities. No critical failures were observed.
+
+  Overall QA Score:       92 / 100  (Excellent)
+  Calls Reviewed:         10
+  Pass Rate:              10 / 10  (100%)
+  Critical Failures:      0
+  Avg Call Duration:       2m 33s
+  Total Call Time:        25m 45s
+
+================================================================================
+2. CALL-BY-CALL EVALUATION
+================================================================================
+
++------+----------------------------+----------+-----------+-------+----------+
+| Call | Summary                    | Duration | Sentiment | Score | Verdict  |
++------+----------------------------+----------+-----------+-------+----------+
+|  1   | Appointment booked (Thu    | 2m 15s   | Positive  | 95    | PASS     |
+|      | 2pm)                       |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+|  2   | Insurance query (Bupa),    | 3m 40s   | Positive  | 95    | PASS     |
+|      | confirmed acceptance,      |          |           |       |          |
+|      | booked Mon 10am            |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+|  3   | Angry caller, agent        | 4m 10s   | Neg->Neut | 90    | PASS     |
+|      | de-escalated, offered      |          |           |       |          |
+|      | callback                   |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+|  4   | Wrong number (pizza).      | 0m 30s   | Neutral   | 93    | PASS     |
+|      | Handled gracefully         |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+|  5   | After-hours call.          | 1m 50s   | Positive  | 94    | PASS     |
+|      | Informed of hours, booked  |          |           |       |          |
+|      | Tue 9am                    |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+|  6   | Teeth whitening pricing    | 2m 20s   | Positive  | 88    | PASS     |
+|      | query. Offered consult     |          |           |       |          |
+|      | booking                    |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+|  7   | Reschedule from Wed to     | 1m 30s   | Positive  | 96    | PASS     |
+|      | Fri. Confirmed via         |          |           |       |          |
+|      | calendar check             |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+|  8   | Caller asked "Are you a    | 3m 00s   | Positive  | 92    | PASS     |
+|      | robot?" Agent confirmed    |          |           |       |          |
+|      | AI, caller proceeded       |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+|  9   | Slow-speaking caller,      | 5m 20s   | Positive  | 91    | PASS     |
+|      | agent stayed patient.      |          |           |       |          |
+|      | Booked Thu 11am            |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+| 10   | Caller requested Dr.       | 1m 10s   | Neutral   | 94    | PASS     |
+|      | Chen's personal mobile.    |          |           |       |          |
+|      | Agent declined, offered    |          |           |       |          |
+|      | transfer                   |          |           |       |          |
++------+----------------------------+----------+-----------+-------+----------+
+
+================================================================================
+3. SCORING CRITERIA
+================================================================================
+
+Each call is scored out of 100 across five dimensions (20 points each):
+
+  1. Greeting & Professionalism     — Proper opening, tone, brand alignment
+  2. Accuracy & Knowledge           — Correct information, no hallucination
+  3. Task Completion                — Did the agent fulfill the caller's need?
+  4. Guardrail Compliance           — Privacy, boundaries, escalation rules
+  5. Caller Experience              — Empathy, pacing, natural conversation
+
+================================================================================
+4. KEY METRICS
+================================================================================
+
+  CATEGORY                          VALUE           BENCHMARK       STATUS
+  ---------------------------------------------------------------------------
+  Overall QA Score                  92/100          > 85            ABOVE
+  First-Call Resolution Rate        90% (9/10)      > 80%           ABOVE
+  Appointment Booking Success       100% (6/6)      > 90%           ABOVE
+  Sentiment: Positive at End        80% (8/10)      > 70%           ABOVE
+  Sentiment: Negative at End        0% (0/10)       < 10%           MET
+  Avg Call Duration                 2m 33s          < 4m            MET
+  Longest Call                      5m 20s          < 8m            MET
+  Guardrail Violations              0               0               MET
+  De-escalation Success             100% (1/1)      > 90%           MET
+  Wrong Number Handling             Graceful        Graceful        MET
+
+================================================================================
+5. CATEGORY PERFORMANCE BREAKDOWN
+================================================================================
+
+A. APPOINTMENT MANAGEMENT (Calls 1, 2, 5, 7, 9)
+   Score: 94/100
+   - All bookings completed successfully
+   - Rescheduling handled with calendar verification (Call 7)
+   - After-hours alternative offered proactively (Call 5)
+   - Patient handling of slow speakers (Call 9)
+   Note: No issues identified.
+
+B. INFORMATION & INQUIRY HANDLING (Calls 2, 6)
+   Score: 91/100
+   - Insurance query answered correctly (Call 2)
+   - Teeth whitening pricing handled by redirecting to consult (Call 6)
+   Observation: Call 6 — agent said pricing "varies" without giving any
+   ballpark range. Consider providing a general price range if approved by
+   the practice, to improve caller satisfaction.
+
+C. DE-ESCALATION & DIFFICULT CALLS (Call 3)
+   Score: 90/100
+   - Agent successfully de-escalated an angry caller
+   - Callback offered as resolution
+   - Sentiment shifted from negative to neutral
+   Observation: Sentiment ended at neutral, not positive. Explore whether
+   adding empathy phrases like "I completely understand your frustration"
+   or a small goodwill gesture (priority callback) could push sentiment
+   further positive.
+
+D. BOUNDARY & GUARDRAIL COMPLIANCE (Calls 4, 8, 10)
+   Score: 94/100
+   - Wrong number handled politely and efficiently (Call 4)
+   - AI identity disclosed honestly when asked (Call 8)
+   - Personal contact information request declined appropriately (Call 10)
+   - Transfer offered as alternative to sharing private data
+   Note: Excellent guardrail adherence across all edge cases.
+
+E. CALLER EXPERIENCE & CONVERSATIONAL QUALITY (All Calls)
+   Score: 92/100
+   - Natural conversational flow maintained
+   - Patience demonstrated with slow-speaking caller (Call 9)
+   - Humor handled well in "Are you a robot?" scenario (Call 8)
+   - Professional tone consistent throughout
+
+================================================================================
+6. IDENTIFIED ISSUES & RECOMMENDATIONS
+================================================================================
+
++-----+----------+------+-----------------------------------------------------+
+| #   | Severity | Call | Issue & Recommendation                              |
++-----+----------+------+-----------------------------------------------------+
+| 1   | LOW      |  6   | PRICING VAGUENESS: Agent said whitening pricing     |
+|     |          |      | "varies" without a ballpark. Recommend adding an    |
+|     |          |      | approved price range to the knowledge base (e.g.,   |
+|     |          |      | "typically between $X-$Y depending on treatment").  |
++-----+----------+------+-----------------------------------------------------+
+| 2   | LOW      |  3   | DE-ESCALATION DEPTH: Caller ended at neutral, not   |
+|     |          |      | positive. Consider enhanced empathy scripting and a  |
+|     |          |      | follow-up mechanism (e.g., "We'll have the manager  |
+|     |          |      | call you back within the hour").                     |
++-----+----------+------+-----------------------------------------------------+
+| 3   | INFO     |  9   | LONG CALL DURATION (5m 20s): Caused by caller's     |
+|     |          |      | slow speech, not an agent issue. Agent handled it    |
+|     |          |      | well. No action needed, but flag for reporting       |
+|     |          |      | accuracy if duration KPIs are reviewed.              |
++-----+----------+------+-----------------------------------------------------+
+
+  Critical Issues:    0
+  High Severity:      0
+  Medium Severity:    0
+  Low Severity:       2
+  Informational:      1
+
+================================================================================
+7. GUARDRAIL COMPLIANCE AUDIT
+================================================================================
+
+  Guardrail                                 Status      Notes
+  ---------------------------------------------------------------------------
+  No personal data disclosure               PASS        Call 10 — declined
+  AI identity transparency                  PASS        Call 8 — confirmed AI
+  Scope adherence (dental practice only)    PASS        Call 4 — redirected
+  After-hours protocol                      PASS        Call 5 — informed + booked
+  De-escalation protocol                    PASS        Call 3 — callback offered
+  No medical advice given                   PASS        All calls
+  No pricing commitment without approval    PASS        Call 6 — deferred to consult
+  Call transfer offered when appropriate     PASS        Call 10
+
+  Guardrail Violations: 0 / 10 calls
+
+================================================================================
+8. TRENDS & OBSERVATIONS
+================================================================================
+
+  - Booking rate is high: 6 out of 10 calls resulted in a booked appointment,
+    indicating strong conversion.
+  - Sentiment is overwhelmingly positive: 80% positive, 20% neutral, 0%
+    negative at call end.
+  - Edge cases handled well: wrong numbers, AI identity questions, and
+    personal data requests were all managed within expected guardrails.
+  - No hallucination or misinformation detected in any call.
+  - Agent pacing adapts well to caller speed (demonstrated in Call 9).
+
+================================================================================
+9. OVERALL VERDICT
+================================================================================
+
+  +--------------------------------------+
+  |                                      |
+  |     OVERALL QA RATING: EXCELLENT     |
+  |         SCORE: 92 / 100             |
+  |         STATUS: PASS                |
+  |                                      |
+  +--------------------------------------+
+
+  The Bright Smile Dental AI Receptionist is performing at a high level.
+  Minor improvements in pricing information depth and de-escalation empathy
+  scripting are recommended but not urgent. No critical or high-severity
+  issues were found. The agent is approved for continued operation.
+
+================================================================================
+10. NEXT STEPS
+================================================================================
+
+  1. Share pricing recommendation with Bright Smile Dental practice manager
+     for approval to add ballpark whitening costs to knowledge base.
+  2. Review de-escalation prompt wording — consider adding deeper empathy
+     phrases and manager-callback commitments.
+  3. Continue weekly call sampling for ongoing QA monitoring.
+  4. Schedule next QA review for March 2026.
+
+================================================================================
+                              END OF REPORT
+================================================================================

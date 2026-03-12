@@ -1,0 +1,178 @@
+{
+  "name": "Bright Smile Dental - Receptionist",
+  "model": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "temperature": 0.7,
+    "maxTokens": 500,
+    "systemMessage": "See BrightSmileDental_SystemPrompt_Receptionist.docx for full prompt"
+  },
+  "voice": {
+    "provider": "deepgram",
+    "voiceId": "asteria",
+    "notes": "Calm & patient — ideal for dental reception. Test with actual scripts before finalizing."
+  },
+  "transcriber": {
+    "provider": "deepgram",
+    "model": "nova-2",
+    "language": "en-AU",
+    "notes": "Nova-2 Medical variant recommended if dental terminology causes transcription issues"
+  },
+  "firstMessage": "Hi, thanks for calling Bright Smile Dental, this is Sophie. Just to let you know, this call is being recorded for quality purposes. How can I help you today?",
+  "endCallMessage": "Thanks for calling Bright Smile Dental. Have a great day!",
+  "endCallPhrases": [
+    "goodbye",
+    "have a great day",
+    "talk soon",
+    "thanks for calling"
+  ],
+  "silenceTimeoutSeconds": 30,
+  "maxDurationSeconds": 600,
+  "backgroundSound": "office",
+  "metadata": {
+    "client": "Bright Smile Dental",
+    "agentType": "inbound-receptionist",
+    "platform": "vapi",
+    "version": "1.0",
+    "createdBy": "Inspra AI",
+    "createdDate": "2026-03-10"
+  },
+  "tools": [
+    {
+      "name": "check_availability",
+      "description": "Check dentist availability for a given date range",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Preferred date (YYYY-MM-DD)"
+          },
+          "dentist": {
+            "type": "string",
+            "description": "Preferred dentist name (optional)"
+          },
+          "visitType": {
+            "type": "string",
+            "description": "Type of visit: checkup, cleaning, emergency, consultation, other"
+          }
+        },
+        "required": ["date"]
+      }
+    },
+    {
+      "name": "book_appointment",
+      "description": "Book a confirmed appointment",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "patientName": {
+            "type": "string",
+            "description": "Full name of the patient"
+          },
+          "patientPhone": {
+            "type": "string",
+            "description": "Contact phone number"
+          },
+          "date": {
+            "type": "string",
+            "description": "Appointment date (YYYY-MM-DD)"
+          },
+          "time": {
+            "type": "string",
+            "description": "Appointment time (HH:MM)"
+          },
+          "dentist": {
+            "type": "string",
+            "description": "Assigned dentist"
+          },
+          "visitType": {
+            "type": "string",
+            "description": "Type of visit"
+          }
+        },
+        "required": ["patientName", "patientPhone", "date", "time", "visitType"]
+      }
+    },
+    {
+      "name": "cancel_appointment",
+      "description": "Cancel an existing appointment",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "patientName": {
+            "type": "string",
+            "description": "Patient name"
+          },
+          "bookingReference": {
+            "type": "string",
+            "description": "Booking reference number (if available)"
+          }
+        },
+        "required": ["patientName"]
+      }
+    },
+    {
+      "name": "reschedule_appointment",
+      "description": "Reschedule an existing appointment to a new date/time",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "patientName": {
+            "type": "string",
+            "description": "Patient name"
+          },
+          "bookingReference": {
+            "type": "string",
+            "description": "Booking reference (if available)"
+          },
+          "newDate": {
+            "type": "string",
+            "description": "New preferred date (YYYY-MM-DD)"
+          },
+          "newTime": {
+            "type": "string",
+            "description": "New preferred time (HH:MM)"
+          }
+        },
+        "required": ["patientName", "newDate", "newTime"]
+      }
+    },
+    {
+      "name": "transfer_call",
+      "description": "Transfer the call to a human staff member",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "description": "Reason for transfer"
+          },
+          "department": {
+            "type": "string",
+            "description": "Target department or person"
+          }
+        },
+        "required": ["reason"]
+      }
+    },
+    {
+      "name": "log_call_outcome",
+      "description": "Log the call outcome before ending",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "outcome": {
+            "type": "string",
+            "description": "Call outcome: appointment_booked, appointment_cancelled, appointment_rescheduled, inquiry_answered, escalated, no_action"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Brief summary of the call"
+          }
+        },
+        "required": ["outcome"]
+      }
+    }
+  ]
+}
