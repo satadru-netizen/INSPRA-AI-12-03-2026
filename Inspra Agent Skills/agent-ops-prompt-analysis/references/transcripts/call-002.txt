@@ -1,0 +1,8 @@
+# Call Transcript 002
+# Replace this file with a real call transcript.
+# Format: paste the full transcript text here, including speaker labels if available.
+# Example:
+#
+# Agent: Thank you for calling Inspra, how can I help you today?
+# Customer: Hi, I need help with...
+# Agent: ...
