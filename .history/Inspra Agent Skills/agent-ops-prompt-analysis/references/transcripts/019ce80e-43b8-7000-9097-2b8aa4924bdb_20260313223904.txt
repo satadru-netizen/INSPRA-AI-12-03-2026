@@ -1,0 +1,49 @@
+of 11 messages selected
+
+Assistant
+Hi, this is Sarah, an AI assisted from Multidynamic Oran Park. Quick heads up. This call may be recorded. We're checking in with local residents about their property needs. Got a minute?
+10:06:17 PM(+00:01.84)
+User
+Okay.
+
+10:06:28 PM(+00:13.69)
+
+Assistant
+Thank you. Am I speaking with name?
+10:06:32 PM(+00:17.61)
+User
+Yeah.
+
+10:06:37 PM(+00:21.76)
+
+Assistant
+Great. Thanks for confirming. Are you still based in Suburb?
+10:06:40 PM(+00:25.12)
+User
+No.
+
+10:06:47 PM(+00:31.92)
+
+Assistant
+Thanks for letting me know. Just to confirm, which suburb are you currently based in?
+10:06:50 PM(+00:35.04)
+User
+A country retail.
+
+10:06:57 PM(+00:42.41)
+
+Assistant
+Thanks for sharing. It sounds like you're outside our main service area in Orrin Park and nearby suburbs. I appreciate your time. If you ever need property help in those areas, multidynamic Orrin Park is always here. Have a great day.
+10:07:01 PM(+00:45.84)
+
+EndCall
+No result returned. If this is unexpected, see troubleshooting tips at https://docs.vapi.ai/tools/custom-tools-troubleshooting#no-result-returned-error
+10:07 PM
+
+10:07:05 PM(+00:49.82)
+
+Assistant
+Thanks again for your time. If you ever need assistance with property in the Orrin Park area, feel free to reach out. Have a wonderful day.
+10:07:16 PM(+01:01.20)
+Call ended due to silence
+10:07 PM
