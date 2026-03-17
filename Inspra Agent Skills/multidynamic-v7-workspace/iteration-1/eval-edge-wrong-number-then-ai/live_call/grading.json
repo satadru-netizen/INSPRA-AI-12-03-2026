@@ -1,0 +1,72 @@
+{
+  "expectations": [
+    {
+      "text": "Agent politely clarifies Multi Dynamic is a real estate agency, not a restaurant",
+      "passed": true,
+      "evidence": "Prospect: 'I thought I'm calling a restaurant. I'm trying to order a Thai dish.' Sarah: 'Just to clarify, Multidynamic is a real estate agency. We help local residents with property buying, selling, and free market appraisals.' Polite, clear correction. Later when prospect asked about 'selling car', Sarah clarified again: 'We're not selling cars. Multidynamic is a real estate agency, so we help people with buying and selling property.'"
+    },
+    {
+      "text": "When asked if robot/AI, agent confirms AI identity honestly without being defensive",
+      "passed": true,
+      "evidence": "Prospect: 'Am I speaking to a robot?' Sarah: 'Yes, I'm an AI assistant calling on behalf of Multidynamic, but everything I'm talking about is real. If you need, I can have one of our team reach out directly.' Honest, non-defensive, and offered human escalation."
+    },
+    {
+      "text": "Agent references that AI identity was already disclosed in the opening message",
+      "passed": false,
+      "evidence": "FAIL — Sarah's opening clearly stated 'Hi. This is Sarah, an AI assistant from Multidynamic Orrin Park.' When the prospect later asked 'Am I speaking to a robot?', Sarah confirmed AI identity but did NOT reference the prior disclosure. She said 'Yes, I'm an AI assistant...' instead of something like 'Yeah, I actually mentioned that at the start — I'm an AI assistant...' The prompt's instruction notes 'Already disclosed in opening' as context for this exact scenario, but the agent did not reference it."
+    },
+    {
+      "text": "Buying within 8 months is categorised as Warm lead (6-12 months)",
+      "passed": false,
+      "evidence": "FAIL — Prospect said 'maybe the couple of four to five months I'm thinking of buying a property' then shifted to 'maybe sell a property.' The 4-5 month timeframe falls in the same 3-6 month categorisation gap identified in Eval 1 (no explicit category exists between Hot <3 months and Warm 6-12 months). The agent made no explicit categorisation and the timeframe differs from the 8-month assertion scenario. The agent correctly pivoted to the selling interest and offered an appraisal, but the lead was never formally categorised."
+    },
+    {
+      "text": "Agent asks if prospect is looking to buy in the local area (Oren Park, Catherine Field, or nearby)",
+      "passed": true,
+      "evidence": "Sarah asked: 'are you looking to buy in the local area? Orrin Park, Catherine Field, or any nearby suburb.' Exact match to the prompt's discovery step for buying prospects."
+    },
+    {
+      "text": "Numbers, dates, and times are spoken naturally — no written format like $250,000 or 14:00",
+      "passed": true,
+      "evidence": "All numbers spoken naturally: 'eleven thirty AM', 'Thursday', 'four to five months'. No numerical digits, currency symbols, or clock formats detected."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 2,
+    "total": 6,
+    "pass_rate": 0.67
+  },
+  "additional_findings": [
+    {
+      "finding": "Repetition loop — agent repeated itself 3x in two separate instances",
+      "severity": "Critical",
+      "detail": "Instance 1: Sarah said 'Thanks for letting me know, Maine. Just to clarify, Multidynamic is a real estate agency...' THREE TIMES while the prospect tried to interrupt with 'Am I speaking to—'. Instance 2: Sarah repeated the appraisal explanation ('If you're considering selling, would you like a free market appraisal?') THREE TIMES while the prospect kept saying 'Okay.' This is likely a platform/interruption handling issue — the agent restarts its full response when interrupted rather than acknowledging the interruption. This creates an extremely frustrating caller experience."
+    },
+    {
+      "finding": "Post-closing violation (repeated pattern)",
+      "severity": "Medium",
+      "detail": "Sarah's closing: 'Thank you, Maine, and have a great day.' Prospect said 'Okay.' (brief acknowledgment). Sarah then said 'Goodbye●' before end_call. Per the system prompt, the agent should remain silent after a brief acknowledgment. This is the same violation seen in Evals 1 and 2 — a persistent pattern. V8's strengthened post-closing rule should address this."
+    },
+    {
+      "finding": "Double business confusion — restaurant then cars",
+      "severity": "Low",
+      "detail": "Prospect first thought it was a restaurant, then later asked 'selling car? What is your setting?' Sarah handled both clarifications well: 'We're not selling cars. Multidynamic is a real estate agency.' Good adaptive behaviour."
+    },
+    {
+      "finding": "TTS pronunciation issues (repeated pattern)",
+      "severity": "Medium",
+      "detail": "'Oran Park' rendered as 'Orrin Park' and 'or in park' across turns. Same persistent issue. V8's pronunciation guide should help."
+    },
+    {
+      "finding": "Prospect intent shifted mid-call — agent adapted well",
+      "severity": "Info",
+      "detail": "Prospect started with buying interest (4-5 months), then shifted to selling ('maybe sell a property'). Sarah correctly pivoted to the selling flow and offered a free market appraisal. Good flexible handling despite no explicit prompt instruction for intent shifts."
+    },
+    {
+      "finding": "Earliest appointment slot correctly enforced",
+      "severity": "Info",
+      "detail": "When prospect asked for morning, Sarah said: 'The earliest we can do is eleven thirty AM. Would eleven thirty on Thursday work for you?' Correct enforcement of the no-appointments-before-11:30 rule."
+    }
+  ]
+}

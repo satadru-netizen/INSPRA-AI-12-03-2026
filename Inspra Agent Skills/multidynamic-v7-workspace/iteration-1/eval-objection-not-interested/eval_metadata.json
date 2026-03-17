@@ -1,0 +1,15 @@
+{
+  "eval_id": 2,
+  "eval_name": "objection-not-interested",
+  "prompt": "Simulate an outbound call where Sarah calls Lisa Nguyen in Catherine Field. Lisa says 'Not interested', then 'I already have an agent.' Sarah handles objections, asks referral question, captures referral details, closes gracefully.",
+  "assertions": [
+    {"text": "Agent responds to 'not interested' with a discovery pivot ('Any property plans in the next year?'), not pressure", "type": "behavior"},
+    {"text": "Agent acknowledges existing agent relationship respectfully without badmouthing competitors", "type": "behavior"},
+    {"text": "Agent does not push beyond two genuine attempts at any single objection", "type": "behavior"},
+    {"text": "Agent asks if prospect knows anyone looking to buy or sell (referral ask)", "type": "contains"},
+    {"text": "Agent captures referral name (Dave Morrison) and phone number", "type": "contains"},
+    {"text": "No fake urgency, guilt, manipulative emotional appeals, or pressure tactics used", "type": "behavior"},
+    {"text": "Call ends warmly without burning the bridge ('If anything changes, Multi Dynamic is always here')", "type": "behavior"},
+    {"text": "Tool execution follows correct order: log_call_outcome → end_call", "type": "behavior"}
+  ]
+}

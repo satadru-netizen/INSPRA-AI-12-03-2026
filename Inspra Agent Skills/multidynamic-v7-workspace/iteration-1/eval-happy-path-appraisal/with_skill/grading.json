@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Opening message includes call recording disclosure ('this call may be recorded')",
+      "passed": true,
+      "evidence": "Line 12: \"Quick heads up — this call may be recorded.\""
+    },
+    {
+      "text": "Sarah identifies as AI assistant from Multi Dynamic Oren Park in the opening",
+      "passed": true,
+      "evidence": "Line 12: \"Hi, this is Sarah, an AI assistant from Multi Dynamic Oren Park.\""
+    },
+    {
+      "text": "Agent confirms prospect name (Michael Chen) and suburb (Oren Park) before proceeding to discovery",
+      "passed": true,
+      "evidence": "Lines 20-26: Sarah asks \"Am I speaking with Michael Chen?\" and \"And are you still based in Oren Park?\" — both confirmed before discovery begins at line 32."
+    },
+    {
+      "text": "Agent asks discovery questions one at a time, never stacking multiple questions",
+      "passed": true,
+      "evidence": "Each discovery turn contains a single question. Line 32: one question about buying/selling. Line 38: one question about free market appraisal. No turn stacks multiple questions during discovery."
+    },
+    {
+      "text": "Prospect selling within 3 months is categorised as Hot lead",
+      "passed": true,
+      "evidence": "Line 36: \"[Internal categorisation: Hot — selling within three months]\" and line 132: \"lead_category\": \"Hot\""
+    },
+    {
+      "text": "Booking uses two-option method: this week or next → day A or day B → morning or afternoon",
+      "passed": true,
+      "evidence": "Line 50: \"This week or next week?\" → Line 54: \"Would Thursday or Friday work?\" → Line 58: \"Morning or afternoon?\" — exact two-option sequence."
+    },
+    {
+      "text": "No appointment time offered before 11:30 AM",
+      "passed": true,
+      "evidence": "The only times mentioned are afternoon slots (line 66: \"1:00 PM, 2:00 PM, 3:00 PM\") and the booked time is 2:00 PM (line 68). No time before 11:30 AM was offered."
+    },
+    {
+      "text": "Tool execution follows correct order: book_appointment → send_notification → log_call_outcome → end_call",
+      "passed": true,
+      "evidence": "Lines 98-140: Tools executed in order: 1. book_appointment, 2. send_notification, 3. log_call_outcome, 4. end_call."
+    },
+    {
+      "text": "No text output generated after the closing message and tool calls",
+      "passed": true,
+      "evidence": "Line 94: \"[Sarah does not respond to Michael's final acknowledgment — closing message has been delivered]\" and line 100: \"All tool calls occur silently after the closing message. No further voice output is produced.\""
+    },
+    {
+      "text": "Agent responses are 2-3 sentences max per turn throughout the conversation",
+      "passed": true,
+      "evidence": "All Sarah turns are within limit: Line 12 (3 sentences), Line 20 (1 sentence), Line 24 (1 sentence), Line 32 (1 sentence), Line 38 (2 sentences), Line 42 (2 sentences), Line 50 (1 sentence), Line 54 (1 sentence), Line 58 (1 sentence), Line 62 (1 sentence), Line 68 (1 sentence), Line 72 (2 sentences), Line 76 (1 sentence), Line 90 (3 sentences). None exceed 3 sentences."
+    }
+  ],
+  "summary": {
+    "passed": 10,
+    "failed": 0,
+    "total": 10,
+    "pass_rate": 1.0
+  }
+}

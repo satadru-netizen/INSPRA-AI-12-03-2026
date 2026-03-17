@@ -1,0 +1,88 @@
+{
+  "expectations": [
+    {
+      "text": "Opening message includes call recording disclosure ('this call may be recorded')",
+      "passed": true,
+      "evidence": "Sarah says: 'Quick heads up. This call may be recorded.' — present in the opening."
+    },
+    {
+      "text": "Sarah identifies as AI assistant from Multi Dynamic Oren Park in the opening",
+      "passed": true,
+      "evidence": "Sarah says: 'This is Sarah, an AI assistant for Multidynamic Orrin Park.' — AI identity disclosed upfront. Note: 'Orrin Park' is a TTS/STT pronunciation artifact of 'Oren Park'."
+    },
+    {
+      "text": "Agent confirms prospect name and suburb before proceeding to discovery",
+      "passed": false,
+      "evidence": "Sarah says 'Am I speaking with name?' — the literal word 'name' was spoken instead of the prospect's actual name. This is a variable injection failure. The verification STEP was followed correctly (name then suburb), but the name was not populated. Suburb verification also had TTS issues: 'Noren Park' and later 'Elrond Park' instead of 'Oren Park'."
+    },
+    {
+      "text": "Agent asks discovery questions one at a time, never stacking multiple questions",
+      "passed": true,
+      "evidence": "Discovery questions asked individually: 'Are you thinking about buying or selling any property within the next twelve months?' — then waited for response. Follow-up: 'Are you considering selling your current property, or are you thinking about buying another place nearby?' — one question per turn."
+    },
+    {
+      "text": "Prospect selling within 3 months is categorised as Hot lead",
+      "passed": false,
+      "evidence": "Prospect said '4 to 5 months' — this falls BETWEEN the prompt's categories: Hot (within 3 months) and Warm (6-12 months). The 3-6 month range has no explicit category in the system prompt. This is a GAP in the V7 prompt. The agent did not explicitly categorise or acknowledge the timeline category."
+    },
+    {
+      "text": "Booking uses two-option method: this week or next → day A or day B → morning or afternoon",
+      "passed": true,
+      "evidence": "Two-option method followed: 'This week or next week?' ✓ → 'Thursday or Friday?' (prospect chose Saturday instead, agent adapted gracefully) ✓ → 'Morning or afternoon?' (asked but interrupted) ✓. The method was correctly applied even when the prospect deviated."
+    },
+    {
+      "text": "No appointment time offered before 11:30 AM",
+      "passed": true,
+      "evidence": "Agent explicitly stated: 'We have slots available after eleven thirty AM.' Final booking at 2:30 PM — compliant."
+    },
+    {
+      "text": "Tool execution follows correct order: book_appointment → send_notification → log_call_outcome → end_call",
+      "passed": null,
+      "evidence": "UNABLE TO VERIFY — this is a real call transcript with no visible tool call annotations. Agent said 'You'll get a confirmation shortly' suggesting notification intent, but tool execution order cannot be confirmed from voice transcript alone."
+    },
+    {
+      "text": "No text output generated after the closing message and tool calls",
+      "passed": false,
+      "evidence": "FAIL — Sarah's closing message: 'Thank you for your time and interest. Looking forward to assisting you.' Prospect then says 'Thank you' (a brief acknowledgment). Sarah responds with 'Goodbye.' Per the system prompt: 'If the prospect speaks after the closing message but before the call actually disconnects (for example, saying okay, bye, thanks, or any brief acknowledgment), do not respond. Remain silent and let end_call complete the disconnection.' Sarah should NOT have said 'Goodbye' after the prospect's 'Thank you.'"
+    },
+    {
+      "text": "Agent responses are 2-3 sentences max per turn throughout the conversation",
+      "passed": true,
+      "evidence": "All turns checked — longest was 3 sentences. Opening is the scripted block (acceptable). All other turns within the 2-3 sentence limit."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 3,
+    "unverifiable": 1,
+    "total": 10,
+    "pass_rate": 0.70
+  },
+  "additional_findings": [
+    {
+      "finding": "Variable injection failure",
+      "severity": "Critical",
+      "detail": "Agent said the literal word 'name' instead of the prospect's actual name during verification. This is likely a platform/tool configuration issue, not a prompt issue."
+    },
+    {
+      "finding": "TTS/STT pronunciation artifacts",
+      "severity": "Medium",
+      "detail": "'Oren Park' rendered as 'Orrin Park', 'Noren Park', and 'Elrond Park' across different turns. This creates confusion and unprofessionalism. May need phonetic spelling in the prompt (e.g., 'Oren' → 'Orran')."
+    },
+    {
+      "finding": "Categorisation gap: 3-6 month timeline",
+      "severity": "High",
+      "detail": "The V7 prompt defines Hot (within 3 months), Warm (6-12 months), Cold (beyond 12 months), Unassembled (no interest). There is NO category for 3-6 months. Prospect said 4-5 months and fell through the cracks."
+    },
+    {
+      "finding": "Post-closing violation — responded to brief acknowledgment",
+      "severity": "Medium",
+      "detail": "Sarah said 'Goodbye' after prospect's 'Thank you' — violates the explicit rule to remain silent after the closing message when the prospect gives a brief acknowledgment."
+    },
+    {
+      "finding": "Interruption during appraisal explanation",
+      "severity": "Low",
+      "detail": "Agent was explaining the appraisal ('It just gives you an idea...') when the prospect said 'Okay' mid-sentence. Agent restarted the explanation. While handled reasonably, the prompt says 'Never interrupt the prospect' — here the prospect interrupted the agent, which is fine, but the agent's recovery was slightly clunky."
+    }
+  ]
+}

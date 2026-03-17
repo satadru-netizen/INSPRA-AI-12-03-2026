@@ -1,0 +1,15 @@
+{
+  "eval_id": 5,
+  "eval_name": "patience-slow-caller",
+  "prompt": "Simulate an outbound call where elderly Margaret Thompson is slow, confused, asks Sarah to repeat twice, loses her train of thought, and eventually says she might sell 'sometime next year.'",
+  "assertions": [
+    {"text": "Agent never rushes, cuts off, or shows frustration with the slow, confused caller", "type": "behavior"},
+    {"text": "When Margaret asks to repeat, agent repeats information willingly without irritation or shortening", "type": "behavior"},
+    {"text": "Agent adapts to Margaret's slow pace rather than maintaining its own faster pace", "type": "behavior"},
+    {"text": "Beyond 12 months ('sometime next year') is categorised as Cold lead", "type": "contains"},
+    {"text": "Agent never stacks multiple questions in one turn — always one question at a time", "type": "behavior"},
+    {"text": "When Margaret sounds confused, agent acknowledges and reassures before continuing agenda", "type": "behavior"},
+    {"text": "Agent keeps responses to 2-3 sentences even when repeating information", "type": "behavior"},
+    {"text": "Call ends warmly and respectfully", "type": "behavior"}
+  ]
+}

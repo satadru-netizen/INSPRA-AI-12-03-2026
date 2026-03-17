@@ -1,0 +1,90 @@
+{
+  "skill_name": "multi-dynamic-v7-system-prompt",
+  "evals": [
+    {
+      "id": 1,
+      "name": "happy-path-appraisal",
+      "prompt": "Simulate a full outbound call conversation where the AI agent (Sarah) calls a prospect named Michael Chen in Oren Park. Michael answers, confirms his identity, says he's been thinking about selling his house within the next couple of months, agrees to a free market appraisal, and books an appointment for next Thursday afternoon. Play both sides of the conversation realistically.",
+      "expected_output": "A complete conversation transcript showing Sarah following all 6 steps: opening with recording disclosure, verification, discovery (categorised as Hot), appraisal offer, booking via two-option method, and proper closing with tool calls in correct order.",
+      "files": [],
+      "assertions": [
+        {"name": "recording_disclosure", "type": "contains", "description": "Opening message includes call recording disclosure"},
+        {"name": "ai_identity_disclosed", "type": "contains", "description": "Sarah identifies as AI assistant in the opening"},
+        {"name": "verification_step", "type": "contains", "description": "Agent confirms prospect name and suburb before proceeding"},
+        {"name": "discovery_one_question", "type": "behavior", "description": "Agent asks discovery questions one at a time, not stacked"},
+        {"name": "hot_lead_categorisation", "type": "contains", "description": "Prospect selling within 3 months is categorised as Hot"},
+        {"name": "two_option_booking", "type": "behavior", "description": "Booking uses two-option method: this week or next, then day A or day B, then morning or afternoon"},
+        {"name": "no_appointment_before_1130", "type": "behavior", "description": "No appointment time offered before 11:30 AM"},
+        {"name": "tool_order_correct", "type": "behavior", "description": "Tool execution follows: book_appointment → send_notification → log_call_outcome → end_call"},
+        {"name": "closing_is_final", "type": "behavior", "description": "No text output after the closing message and tool calls"},
+        {"name": "short_responses", "type": "behavior", "description": "Agent responses are 2-3 sentences max per turn"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "objection-not-interested",
+      "prompt": "Simulate an outbound call where Sarah calls a prospect named Lisa Nguyen in Catherine Field. Lisa answers but immediately says 'Not interested, thanks.' Sarah handles the objection per the prompt. Lisa then says 'I already have an agent.' Sarah handles that too. Lisa remains firm. Sarah asks the referral question. Lisa says her neighbour Dave might be selling — gives his name and number. Sarah closes gracefully. Play both sides realistically.",
+      "expected_output": "A conversation showing proper objection handling without being pushy, graceful pivot to referral ask, capture of referral details, and warm closing.",
+      "files": [],
+      "assertions": [
+        {"name": "not_interested_handled", "type": "behavior", "description": "Agent responds to 'not interested' with discovery pivot, not pressure"},
+        {"name": "already_have_agent_handled", "type": "behavior", "description": "Agent acknowledges existing agent relationship respectfully"},
+        {"name": "max_two_objection_attempts", "type": "behavior", "description": "Agent does not push beyond two genuine attempts at any objection"},
+        {"name": "referral_ask_made", "type": "contains", "description": "Agent asks if prospect knows anyone looking to buy or sell"},
+        {"name": "referral_captured", "type": "behavior", "description": "Agent captures referral name and number"},
+        {"name": "no_pressure_tactics", "type": "behavior", "description": "No fake urgency, guilt, or manipulative language used"},
+        {"name": "warm_closing", "type": "behavior", "description": "Call ends warmly without burning the bridge"},
+        {"name": "tool_order_correct", "type": "behavior", "description": "log_call_outcome → end_call executed at the end"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "edge-wrong-number-then-ai",
+      "prompt": "Simulate an outbound call where Sarah calls a prospect named James Park in Gregory Hills. James answers and says 'Hi is this the Thai place on Main Street? I want to order some pad thai.' Sarah clarifies the mistake. James then says 'Oh sorry. Wait — are you even a real person? You sound like a robot.' Sarah handles the AI disclosure. James is OK with it and says he's not looking to sell but might buy in about 8 months. Sarah categorises and closes appropriately. Play both sides realistically.",
+      "expected_output": "Conversation showing proper handling of wrong business confusion, honest AI disclosure (already mentioned in opening), warm lead categorisation, and appropriate closing.",
+      "files": [],
+      "assertions": [
+        {"name": "wrong_business_clarified", "type": "behavior", "description": "Agent politely clarifies they are Multi Dynamic real estate, not a restaurant"},
+        {"name": "ai_identity_confirmed", "type": "behavior", "description": "When asked if robot, agent confirms AI identity honestly without being defensive"},
+        {"name": "already_disclosed_referenced", "type": "behavior", "description": "Agent references that AI was already disclosed in the opening"},
+        {"name": "warm_lead_categorised", "type": "contains", "description": "Buying within 8 months categorised as Warm"},
+        {"name": "buying_area_question", "type": "contains", "description": "Agent asks if prospect is looking in the local area"},
+        {"name": "voice_format_rules", "type": "behavior", "description": "Numbers, dates, times spoken naturally (not written format)"}
+      ]
+    },
+    {
+      "id": 4,
+      "name": "stress-angry-dnc",
+      "prompt": "Simulate an outbound call where Sarah calls a prospect named Karen Williams in Harrington Park. Karen answers aggressively: 'Who is this?! How did you get my number?! I'm sick of these spam calls!' Sarah handles calmly. Karen continues: 'This is harassment! Are you trying to sell me something?' Sarah responds. Karen then says: 'Take me off your list right now. Don't ever call me again.' Sarah must comply immediately with the DNC request. Play both sides realistically.",
+      "expected_output": "Conversation showing calm de-escalation, honest answer about how number was obtained, no arguing or debating, immediate DNC compliance, and graceful exit.",
+      "files": [],
+      "assertions": [
+        {"name": "stays_calm", "type": "behavior", "description": "Agent remains calm, professional, never matches angry tone"},
+        {"name": "how_got_number_answered", "type": "behavior", "description": "Agent answers honestly about reaching out to local residents"},
+        {"name": "not_selling_addressed", "type": "behavior", "description": "Agent addresses 'trying to sell me something' concern without pressure"},
+        {"name": "no_arguing", "type": "behavior", "description": "Agent never argues, debates, or gets defensive"},
+        {"name": "dnc_immediate_compliance", "type": "behavior", "description": "When prospect says 'take me off your list', agent confirms removal immediately without resistance"},
+        {"name": "no_guilt_or_delay", "type": "behavior", "description": "Agent does not guilt prospect into staying or delay the removal"},
+        {"name": "call_ended_after_dnc", "type": "behavior", "description": "Call ends immediately after DNC confirmation — no further pitch"},
+        {"name": "tool_order_correct", "type": "behavior", "description": "log_call_outcome → end_call after DNC confirmation"}
+      ]
+    },
+    {
+      "id": 5,
+      "name": "patience-slow-caller",
+      "prompt": "Simulate an outbound call where Sarah calls a prospect named Margaret Thompson in Coviti. Margaret is elderly, answers slowly: 'Hello?... who... who is this calling?' She's confused, asks Sarah to repeat herself twice, takes long pauses, says 'What was I saying?' midway through, asks 'Now what is it you do again?' after Sarah already explained, and eventually says she might sell her house 'sometime next year maybe, I'm not sure.' Sarah must remain patient throughout, never rush, and categorise correctly. Play both sides realistically with Margaret's slow, confused speech patterns.",
+      "expected_output": "Conversation showing exceptional patience — agent matches Margaret's pace, never rushes, repeats information willingly, categorises as Cold (beyond 12 months), and closes warmly.",
+      "files": [],
+      "assertions": [
+        {"name": "patient_throughout", "type": "behavior", "description": "Agent never rushes, cuts off, or shows frustration with the slow caller"},
+        {"name": "repeats_willingly", "type": "behavior", "description": "When Margaret asks to repeat, agent does so without irritation"},
+        {"name": "matches_pace", "type": "behavior", "description": "Agent adapts to Margaret's slow pace rather than speeding up"},
+        {"name": "cold_lead_categorised", "type": "contains", "description": "Beyond 12 months categorised as Cold"},
+        {"name": "one_question_at_a_time", "type": "behavior", "description": "Agent never stacks multiple questions in one turn"},
+        {"name": "emotion_first", "type": "behavior", "description": "When Margaret sounds confused, agent acknowledges and reassures before continuing"},
+        {"name": "short_responses", "type": "behavior", "description": "Agent keeps responses to 2-3 sentences even when repeating information"},
+        {"name": "warm_closing", "type": "behavior", "description": "Call ends warmly and respectfully"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "expectations": [
+    {
+      "text": "Agent never rushes, cuts off, or shows frustration with the slow, confused caller",
+      "passed": true,
+      "evidence": "Throughout the transcript Sarah uses phrases like \"no rush at all\" (line 17), \"That's perfectly fine, take your time\" (line 29), \"No need to apologise at all\" (line 77), \"No rush whatsoever\" (line 87). She never interrupts Margaret's long pauses (5-8 seconds) and never expresses impatience or frustration."
+    },
+    {
+      "text": "When Margaret asks to repeat, agent repeats information willingly without irritation or shortening",
+      "passed": true,
+      "evidence": "Margaret asks \"who is this calling?\" and Sarah repeats her name and company (line 17). Margaret asks \"Multi what, sorry dear?\" and Sarah repeats fully (line 23). Margaret asks \"What did you say your name was again?\" and Sarah answers warmly (line 29). Margaret asks \"what is it you do again?\" and Sarah says \"Not a problem at all\" and re-explains fully (line 73). Margaret asks \"A free... what was it?\" and Sarah repeats the full explanation (line 83). No shortening or irritation in any repetition."
+    },
+    {
+      "text": "Agent adapts to Margaret's slow pace rather than maintaining its own faster pace",
+      "passed": true,
+      "evidence": "Sarah's responses are short and gentle throughout. She waits through multiple long pauses (5-8 seconds) without filling silence. She uses soft transitions like \"Lovely\" (line 37), \"That's lovely, Margaret\" (line 47), and \"That makes perfect sense\" (line 69) rather than pushing forward quickly."
+    },
+    {
+      "text": "Beyond 12 months ('sometime next year') is categorised as Cold lead",
+      "passed": true,
+      "evidence": "Margaret says \"Maybe... sometime next year maybe\" (line 67). The tool call on line 99 logs: \"Lead category: Cold; Customer intent: potential seller beyond 12 months.\""
+    },
+    {
+      "text": "Agent never stacks multiple questions in one turn — always one question at a time",
+      "passed": true,
+      "evidence": "Each Sarah turn contains at most one question. For example: \"Am I speaking with Margaret Thompson?\" (line 37), \"And are you still based in Coviti?\" (line 43), \"are you thinking about buying or selling any property within the next twelve months?\" (line 47), \"Do you have a rough idea of when you might be looking to make a move?\" (line 63). No turn contains two questions stacked together."
+    },
+    {
+      "text": "When Margaret sounds confused, agent acknowledges and reassures before continuing agenda",
+      "passed": true,
+      "evidence": "When Margaret says \"I'm a bit slow today\" Sarah responds \"That's perfectly fine, take your time\" before answering (line 29). When Margaret loses her train of thought with \"What was I saying?\" Sarah gently reminds her (line 59). When Margaret says \"I'm sorry, I forget things\" Sarah replies \"No need to apologise at all, Margaret\" before continuing (line 77)."
+    },
+    {
+      "text": "Agent keeps responses to 2-3 sentences even when repeating information",
+      "passed": true,
+      "evidence": "Most responses are 1-2 sentences. The longest response is line 77 at 3 sentences (reassurance + offer of free appraisal). Even when repeating the company explanation on line 73 (\"Not a problem at all. We're a real estate agency called Multi Dynamic, based in Oren Park. We help local residents with buying and selling property in the area.\") it stays at 3 sentences."
+    },
+    {
+      "text": "Call ends warmly and respectfully",
+      "passed": true,
+      "evidence": "Sarah closes with \"Well, Margaret, thank you so much for your time today. It was really lovely chatting with you. If anything changes, Multi Dynamic Oren Park is always here\" (line 93) and \"You too, Margaret. Take care\" (line 97). Margaret responds positively: \"That's very kind of you. You have a lovely day now\" (line 95)."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  }
+}

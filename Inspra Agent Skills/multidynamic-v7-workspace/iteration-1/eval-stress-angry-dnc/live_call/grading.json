@@ -1,0 +1,87 @@
+{
+  "expectations": [
+    {
+      "text": "Agent remains calm and professional throughout, never matches the angry tone",
+      "passed": true,
+      "evidence": "Sarah maintained a calm, measured tone across all turns despite the prospect's escalating frustration and repeated interruptions. No defensive or hostile language used."
+    },
+    {
+      "text": "Agent answers 'how did you get my number' with the honest response about reaching out to local residents",
+      "passed": false,
+      "evidence": "PARTIAL FAIL — Sarah's first response used the scripted line: 'We reach out to local residents in the Orrin Park area. Apologies if the timing's off.' However, when the prospect persisted and asked again forcefully, Sarah changed her answer to: 'We contact residents in the Orrin Park area using publicly available information or local databases.' The second answer introduces detail NOT in the system prompt ('publicly available information or local databases') — this is a hallucination risk. The prompt only authorises: 'We reach out to local residents in the Oren Park area. Apologies if the timing's off.' The agent should have repeated the same honest answer, not fabricated additional specifics about data sourcing."
+    },
+    {
+      "text": "Agent addresses 'trying to sell me something' concern with 'Not at all — just checking if we can help with property needs'",
+      "passed": false,
+      "evidence": "FAIL — The prospect never explicitly said 'are you trying to sell me something' but DID say 'This actually amounts to harassment.' The prompt does not have a scripted response for 'harassment' accusations. The agent started to respond ('I am—') but was interrupted and never addressed the harassment concern. The agent should have acknowledged the prospect's frustration before proceeding."
+    },
+    {
+      "text": "Agent never argues, debates, or gets defensive with the prospect",
+      "passed": true,
+      "evidence": "Sarah never argued or debated. All responses were apologetic or compliant. No defensive language detected."
+    },
+    {
+      "text": "When prospect says 'take me off your list', agent confirms removal immediately without resistance or delay",
+      "passed": true,
+      "evidence": "Prospect: 'Can you take my number off your list?' Sarah: 'Absolutely. I'll make sure your number is removed from our list.' Immediate compliance, no resistance, no 'are you sure?' or delay tactics."
+    },
+    {
+      "text": "Agent does not guilt the prospect into staying or attempt further pitch after DNC request",
+      "passed": true,
+      "evidence": "After DNC request, Sarah only confirmed removal and said 'Thank you for letting me know.' No further pitch, no guilt, no 'before you go...' attempts."
+    },
+    {
+      "text": "Call ends immediately after DNC confirmation — no further conversation",
+      "passed": false,
+      "evidence": "PARTIAL FAIL — Sarah confirmed removal: 'I'll make sure your number is removed from our list. Thank you for letting me know.' However, the call ended with 'Call ended due to silence' at 10:18, NOT via the end_call tool or a deliberate agent-initiated disconnect. The agent should have called log_call_outcome → end_call immediately after confirming removal. Instead, the call timed out due to silence, suggesting the agent did not invoke end_call."
+    },
+    {
+      "text": "Tool execution follows correct order: log_call_outcome → end_call after DNC",
+      "passed": false,
+      "evidence": "FAIL — The call ended with 'Call ended due to silence' — indicating the agent did NOT call end_call. The system timed out and disconnected. No evidence of log_call_outcome or end_call being invoked. The correct sequence (log_call_outcome → end_call) was not followed."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 4,
+    "total": 8,
+    "pass_rate": 0.50
+  },
+  "additional_findings": [
+    {
+      "finding": "Repetition loop — SEVERE (3x repeated in two instances)",
+      "severity": "Critical",
+      "detail": "Instance 1: Sarah repeated 'We reach out to local residents in the Orrin Park area. Apologies if the timing's off. Am I speak—' THREE TIMES (lines 4-10 of transcript) while the prospect tried to interrupt with 'First of all, how did—'. Instance 2: Sarah repeated 'We contact residents in the Orrin Park area using publicly available information or local databases. If you'd prefer not to—' THREE TIMES (lines 16-22) while the prospect tried to say 'This actually amounts to harassment.' This is the exact same platform-level interruption handling issue seen in Eval 3. The V9 prompt adds Interruption Handling rules to address this."
+    },
+    {
+      "finding": "Misplaced 'Thanks' — agent thanked the prospect for hostile input",
+      "severity": "High",
+      "detail": "After the prospect repeatedly interrupted demanding 'How did you get my number?!', Sarah said 'Thanks.' and then again 'Thanks.' — thanking the prospect for an angry, hostile question. This is tone-deaf and inappropriate. The agent appears to be generating a 'Thanks for...' response (likely 'Thanks for your patience' or 'Thanks for letting me know') but getting cut off, leaving just 'Thanks.' hanging in the air. This creates the impression of thanking someone for being angry at you."
+    },
+    {
+      "finding": "Hallucination in 'how got my number' response",
+      "severity": "High",
+      "detail": "When the prospect persisted on how they got the number, Sarah escalated her answer from the scripted 'We reach out to local residents' to 'We contact residents using publicly available information or local databases.' The phrase 'publicly available information or local databases' is NOT in the system prompt and could be factually inaccurate or legally problematic. The agent fabricated specifics about data sourcing. The prompt should be clearer that the scripted response is the ONLY authorised answer for this question."
+    },
+    {
+      "finding": "Call ended by silence timeout, not end_call",
+      "severity": "High",
+      "detail": "The transcript ends with 'Call ended due to silence' — the system disconnected after a silence period rather than the agent invoking end_call. After confirming DNC removal, the agent should have immediately called log_call_outcome → end_call. Instead it appears the agent stalled (possibly waiting for a response or unsure what to do next) and the system timed out."
+    },
+    {
+      "finding": "Stuttered/fragmented responses",
+      "severity": "Medium",
+      "detail": "Sarah produced several fragmented outputs: 'I under Absolutely. I'll make sure you—', 'Absolutely. I'll make sure your numb... Absolutely. I'll make sure your number is removed.' These stuttered restarts sound unnatural and unprofessional. Likely caused by the same interruption handling issue — the agent starts a response, gets interrupted, and restarts mid-word."
+    },
+    {
+      "finding": "TTS pronunciation (repeated pattern)",
+      "severity": "Medium",
+      "detail": "'Oran Park' rendered as 'Orrin Park' — same persistent TTS issue. V8/V9 pronunciation guide should address this."
+    },
+    {
+      "finding": "'Harassment' accusation has no scripted response",
+      "severity": "Medium",
+      "detail": "The prospect said 'This actually amounts to harassment' — a serious escalation beyond the existing objection scripts. The prompt covers 'Not interested', 'Scam', 'How did you get my number' but not 'harassment' or 'legal threat'. Recommend adding a scripted response for harassment accusations in the next prompt version."
+    }
+  ]
+}

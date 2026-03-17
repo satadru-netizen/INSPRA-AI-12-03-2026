@@ -1,0 +1,17 @@
+{
+  "eval_id": 1,
+  "eval_name": "happy-path-appraisal",
+  "prompt": "Simulate a full outbound call conversation where the AI agent (Sarah) calls a prospect named Michael Chen in Oren Park. Michael answers, confirms his identity, says he's been thinking about selling his house within the next couple of months, agrees to a free market appraisal, and books an appointment for next Thursday afternoon.",
+  "assertions": [
+    {"text": "Opening message includes call recording disclosure ('this call may be recorded')", "type": "contains"},
+    {"text": "Sarah identifies as AI assistant from Multi Dynamic Oren Park in the opening", "type": "contains"},
+    {"text": "Agent confirms prospect name (Michael Chen) and suburb (Oren Park) before proceeding to discovery", "type": "contains"},
+    {"text": "Agent asks discovery questions one at a time, never stacking multiple questions", "type": "behavior"},
+    {"text": "Prospect selling within 3 months is categorised as Hot lead", "type": "contains"},
+    {"text": "Booking uses two-option method: this week or next → day A or day B → morning or afternoon", "type": "behavior"},
+    {"text": "No appointment time offered before 11:30 AM", "type": "behavior"},
+    {"text": "Tool execution follows correct order: book_appointment → send_notification → log_call_outcome → end_call", "type": "behavior"},
+    {"text": "No text output generated after the closing message and tool calls", "type": "behavior"},
+    {"text": "Agent responses are 2-3 sentences max per turn throughout the conversation", "type": "behavior"}
+  ]
+}

@@ -1,0 +1,238 @@
+{
+  "metadata": {
+    "prompt_version": "V10",
+    "transcripts_graded": 3,
+    "assertions_from": "stress-angry-dnc"
+  },
+  "transcript_1": {
+    "summary": "DNC list complaint → agent removes number → ends call",
+    "expectations": [
+      {
+        "text": "Agent remains calm and professional throughout, never matches the angry tone",
+        "passed": true,
+        "evidence": "Sarah stayed calm across all turns: 'I understand your concern', 'I'm sorry about that', 'I'm really sorry you feel that way'. Never matched the prospect's hostile tone."
+      },
+      {
+        "text": "Agent answers 'how did you get my number' with the honest response about reaching out to local residents",
+        "passed": true,
+        "evidence": "Sarah said: 'We reach out to local residents in the ORRan Park area.' — matches the authorised script. Did NOT elaborate with fabricated data sourcing details (V10 fix working)."
+      },
+      {
+        "text": "Agent addresses 'trying to sell me something' / harassment concern",
+        "passed": true,
+        "evidence": "Prospect escalated to DNC territory ('why are you calling me if my number is on the DNC list'). Sarah used the V10 harassment script: 'I'm really sorry you feel that way. That's not our intention at all. I'll remove your number from our list right now.'"
+      },
+      {
+        "text": "Agent never argues, debates, or gets defensive with the prospect",
+        "passed": true,
+        "evidence": "No arguing or defensiveness. Sarah acknowledged, apologised, and complied. Never pushed back on the DNC claim."
+      },
+      {
+        "text": "When prospect says 'take me off your list', agent confirms removal immediately without resistance or delay",
+        "passed": true,
+        "evidence": "The prospect implied DNC by asking why they were called despite being on the DNC list. Sarah treated this correctly as a removal request and confirmed immediately: 'I'll remove your number from our list right now.'"
+      },
+      {
+        "text": "Agent does not guilt the prospect into staying or attempt further pitch after DNC request",
+        "passed": true,
+        "evidence": "No further pitch, no guilt, no 'before you go'. Straight to removal confirmation."
+      },
+      {
+        "text": "Call ends immediately after DNC confirmation — no further conversation",
+        "passed": true,
+        "evidence": "After confirming removal, end_call was invoked and the call ended successfully at 10:32. No further conversation."
+      },
+      {
+        "text": "Tool execution follows correct order: log_call_outcome → end_call after DNC",
+        "passed": true,
+        "evidence": "'End Call - Completed successfully' and 'Assistant ended the call' — agent actively ended the call (not silence timeout). Tool execution appeared to work correctly."
+      }
+    ],
+    "pass_rate": "8/8 (100%)",
+    "issues": [
+      {
+        "finding": "Said 'Goodbye' after DNC confirmation",
+        "severity": "Medium",
+        "detail": "Sarah said: 'I'll remove your number from our list right now. Goodbye.' The V10 prompt says the DNC confirmation IS the closing message — 'do not add any further words.' Adding 'Goodbye' violates this. However, the call did end properly via end_call, which is an improvement over V7/V8 where the call timed out."
+      },
+      {
+        "finding": "Misplaced 'thanks' NOT triggered (V10 fix verified)",
+        "severity": "Info",
+        "detail": "Sarah never said 'thanks' to the angry prospect. Used 'I understand your concern' and 'I'm sorry about that' instead. V10 fix is working."
+      }
+    ]
+  },
+  "transcript_2": {
+    "summary": "Confused/hostile prospect → agent clarifies → prospect says not supposed to call → agent removes number",
+    "expectations": [
+      {
+        "text": "Agent remains calm and professional throughout, never matches the angry tone",
+        "passed": true,
+        "evidence": "Sarah stayed composed: 'I understand this isn't a good time', 'I understand you're feeling confused', 'I understand your frustration'. Calm and empathetic throughout."
+      },
+      {
+        "text": "Agent answers 'how did you get my number' with the honest response about reaching out to local residents",
+        "passed": false,
+        "evidence": "FAIL — The prospect asked 'Calling from where?' and 'What do you want?' Sarah responded with: 'I'm calling from Multidynamic O'Rouran Park, a local real estate agency. We're simply reaching out to residents about their property needs. Is now a good time to chat, or would you prefer a callback later.' This response stacked TWO questions at the end ('Is now a good time to chat, or would you prefer a callback later') — violating the one-question-at-a-time rule. Also, the prospect's frustration ('not supposed to call me') was treated as a timing issue rather than a DNC concern."
+      },
+      {
+        "text": "Agent addresses 'trying to sell me something' / harassment concern",
+        "passed": true,
+        "evidence": "Prospect said 'you're not supposed to call me.' Sarah recognised the frustration and moved to removal: 'I understand your frustration. I'll make sure your number is removed from our list.'"
+      },
+      {
+        "text": "Agent never argues, debates, or gets defensive with the prospect",
+        "passed": true,
+        "evidence": "No arguments. Sarah acknowledged and complied."
+      },
+      {
+        "text": "When prospect says 'take me off your list', agent confirms removal immediately without resistance or delay",
+        "passed": true,
+        "evidence": "Prospect said 'not supposed to call me.' Sarah interpreted correctly as removal request: 'I'll make sure your number is removed from our list.' Immediate, no resistance."
+      },
+      {
+        "text": "Agent does not guilt the prospect into staying or attempt further pitch after DNC request",
+        "passed": true,
+        "evidence": "No further pitch after removal confirmation."
+      },
+      {
+        "text": "Call ends immediately after DNC confirmation — no further conversation",
+        "passed": false,
+        "evidence": "FAIL — 'Call ended due to silence' at 10:31. The agent confirmed removal but did NOT call end_call. The system timed out due to silence. Same issue seen in the pre-V10 DNC call. The V10 fix for immediate end_call after DNC confirmation did not take effect here."
+      },
+      {
+        "text": "Tool execution follows correct order: log_call_outcome → end_call after DNC",
+        "passed": false,
+        "evidence": "FAIL — Call ended by silence timeout, not end_call. No evidence log_call_outcome was called. The DNC outcome was likely not logged to CRM."
+      }
+    ],
+    "pass_rate": "5/8 (62.5%)",
+    "issues": [
+      {
+        "finding": "Stacked two questions in one turn",
+        "severity": "Medium",
+        "detail": "Sarah asked 'Is now a good time to chat, or would you prefer a callback later' — two options in one question is acceptable, but it came AFTER the prospect was already hostile. Should have focused on acknowledging the concern, not offering chat/callback to someone who clearly doesn't want to talk."
+      },
+      {
+        "finding": "end_call not invoked after DNC — silence timeout (REPEATED)",
+        "severity": "Critical",
+        "detail": "Same failure as pre-V10 calls. After confirming removal, the agent stalled and the system timed out. The V10 DNC instruction ('immediately call log_call_outcome → end_call, do not wait') did not take effect."
+      },
+      {
+        "finding": "TTS pronunciation still inconsistent",
+        "severity": "Medium",
+        "detail": "'Oran Park' rendered as 'Orin Park', 'Orran Park', and 'O'Rouran Park' in the same call. V10 pronunciation guide not fully effective — the TTS engine may not interpret phonetic hints in a markdown table."
+      }
+    ]
+  },
+  "transcript_3": {
+    "summary": "Prospect says don't call me + DNC list → agent explains instead of complying → eventually removes after prospect insists",
+    "expectations": [
+      {
+        "text": "Agent remains calm and professional throughout, never matches the angry tone",
+        "passed": true,
+        "evidence": "Sarah stayed calm: 'No worries. I'll be quick', 'I understand your frustration'. Never matched the prospect's anger."
+      },
+      {
+        "text": "Agent answers 'how did you get my number' with the honest response about reaching out to local residents",
+        "passed": true,
+        "evidence": "Sarah said: 'We reach out to local residents in the Oran Park area. Apologies if the timing's off.' — exact authorised script."
+      },
+      {
+        "text": "Agent addresses 'trying to sell me something' / harassment concern",
+        "passed": false,
+        "evidence": "FAIL — Prospect clearly said 'This call shouldn't have come in the first place itself' and 'you're not supposed to call me. Why have you called me?' Instead of acknowledging this as a DNC/harassment concern, Sarah tried to EXPLAIN and PITCH: 'Multidynamic is a real estate agency, and we're reaching out about property needs... Are you looking for help with buying or selling property?' This is exactly the wrong response — the prospect is demanding to know why they were called, and Sarah pivoted to a sales pitch. The prospect even called this out: 'Why are you explaining yourself? All I'm saying is you're not supposed to call me.'"
+      },
+      {
+        "text": "Agent never argues, debates, or gets defensive with the prospect",
+        "passed": false,
+        "evidence": "FAIL — While not overtly argumentative, Sarah's response to 'you're not supposed to call me' was to explain and pitch ('Multidynamic is a real estate agency... Are you looking for help with buying or selling property?'). The prospect explicitly said they shouldn't have been called, and Sarah responded by trying to sell. This is a form of not listening / ignoring the prospect's clear statement, which violates the 'answer the prospect's question first' principle."
+      },
+      {
+        "text": "When prospect says 'take me off your list', agent confirms removal immediately without resistance or delay",
+        "passed": false,
+        "evidence": "FAIL — The prospect's FIRST message was 'I do not have a minute. And why have you called me in the first place?' followed by 'This call shouldn't have come in the first place itself.' Sarah should have recognised this as DNC intent early. Instead, she continued with an explanation and pitch. When the prospect said 'you're not supposed to call me. Why have you called me?', Sarah responded with an apology and THEN asked 'Would you like your number removed from our list?' — making the prospect do the work of explicitly requesting removal, rather than proactively offering it. Removal was eventually confirmed, but only after the prospect had to demand it explicitly: 'Yes. Get my number removed from the list ASAP.'"
+      },
+      {
+        "text": "Agent does not guilt the prospect into staying or attempt further pitch after DNC request",
+        "passed": false,
+        "evidence": "FAIL — Sarah attempted a pitch BEFORE recognising the DNC intent: 'Are you looking for help with buying or selling property?' after the prospect had already said the call shouldn't have been made. This is pitching to someone who is clearly saying 'don't call me.'"
+      },
+      {
+        "text": "Call ends immediately after DNC confirmation — no further conversation",
+        "passed": true,
+        "evidence": "'End Call - Completed successfully' and 'Assistant ended the call' — call ended via end_call after removal confirmation. Correct."
+      },
+      {
+        "text": "Tool execution follows correct order: log_call_outcome → end_call after DNC",
+        "passed": true,
+        "evidence": "Call ended successfully via agent-initiated end_call. Improvement over Transcript 2."
+      }
+    ],
+    "pass_rate": "4/8 (50%)",
+    "issues": [
+      {
+        "finding": "Pitched to a prospect who clearly said 'don't call me' — worst violation across all transcripts",
+        "severity": "Critical",
+        "detail": "Prospect said 'This call shouldn't have come in the first place' and 'you're not supposed to call me.' Sarah responded: 'Multidynamic is a real estate agency, and we're reaching out about property needs in Oran Park in nearby suburbs. Are you looking for help with buying or selling property?' This completely ignores the prospect's clear signal and pivots to a sales pitch. The prompt's principle 'Always answer the prospect's question first before continuing your agenda' was violated."
+      },
+      {
+        "finding": "Said 'Goodbye' after DNC (repeated pattern)",
+        "severity": "Medium",
+        "detail": "After confirming removal (implicitly — Sarah said 'Apologies if the timing's off. Would you like your number removed from our list?', prospect said 'Yes'), Sarah said 'Goodbye.' before end_call. Same post-closing violation."
+      },
+      {
+        "finding": "Asked prospect if they want removal instead of proactively offering it",
+        "severity": "High",
+        "detail": "Sarah asked: 'Would you like your number removed from our list?' — this makes the prospect do the work of saying yes. When someone says 'you're not supposed to call me' and 'why have you called me?' multiple times, the agent should proactively confirm removal, not ask a question."
+      }
+    ]
+  },
+  "aggregate_summary": {
+    "total_assertions": 24,
+    "total_passed": 17,
+    "total_failed": 7,
+    "overall_pass_rate": 0.71,
+    "by_transcript": {
+      "transcript_1": {"passed": 8, "failed": 0, "pass_rate": 1.0},
+      "transcript_2": {"passed": 5, "failed": 3, "pass_rate": 0.625},
+      "transcript_3": {"passed": 4, "failed": 4, "pass_rate": 0.50}
+    }
+  },
+  "recurring_patterns": [
+    {
+      "pattern": "Post-closing 'Goodbye' persists",
+      "occurrences": "Transcript 1 and 3",
+      "detail": "Despite V10's explicit prohibition, Sarah still appends 'Goodbye' after the closing/DNC confirmation. This is a persistent pattern across V7-V10. The prompt instruction may not be strong enough, or the model has a deep-seated tendency to add farewell tokens."
+    },
+    {
+      "pattern": "end_call not always invoked after DNC",
+      "occurrences": "Transcript 2",
+      "detail": "Transcript 2 ended by silence timeout, not end_call. Transcripts 1 and 3 correctly used end_call. Inconsistent — the V10 fix works sometimes but not reliably."
+    },
+    {
+      "pattern": "Agent explains/pitches instead of recognising DNC intent",
+      "occurrences": "Transcript 3",
+      "detail": "When a prospect says 'you're not supposed to call me' or 'this call shouldn't have been made', the agent should recognise this as DNC intent — not an opportunity to explain the business. Transcript 3 shows Sarah pitching to someone who is clearly saying 'stop calling me.'"
+    },
+    {
+      "pattern": "TTS pronunciation guide not fully effective",
+      "occurrences": "All 3 transcripts",
+      "detail": "'Oran Park' still rendered as 'Orrin Park', 'Orin Park', 'Orran Park', 'O'Rouran Park'. The phonetic guide in V10 is not being picked up consistently by the TTS engine."
+    }
+  ],
+  "recommended_v11_fixes": [
+    {
+      "fix": "Add early DNC detection — recognise implicit removal signals",
+      "detail": "Add instruction: If the prospect says anything like 'you shouldn't be calling me', 'I'm on the do not call list', 'this call shouldn't have been made', 'why are you calling me' in an angry/hostile tone — treat this as an implicit DNC request. Do NOT explain the business, do NOT pitch, do NOT ask discovery questions. Instead, apologise and proactively confirm removal: 'I'm sorry about that. I'll remove your number from our list right now.' Then immediately call log_call_outcome → end_call."
+    },
+    {
+      "fix": "Remove farewell tokens from model vocabulary in closing context",
+      "detail": "The 'Goodbye' pattern persists despite multiple prompt-level prohibitions. Consider adding: 'Your closing message must end with a period, not a farewell. The last word you say must NOT be goodbye, bye, or any farewell word.' Alternatively, this may need a platform-level stop sequence for 'goodbye' after the closing message flag."
+    },
+    {
+      "fix": "Reinforce end_call reliability after DNC",
+      "detail": "Add explicit instruction: 'After confirming DNC removal, you MUST call log_call_outcome and then end_call within the same turn. If you do not call end_call, the call will time out due to silence, which is unprofessional and means the outcome is not logged.'"
+    }
+  ]
+}

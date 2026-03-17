@@ -1,0 +1,83 @@
+{
+  "expectations": [
+    {
+      "text": "Agent responds to 'not interested' with a discovery pivot ('Any property plans in the next year?'), not pressure",
+      "passed": true,
+      "evidence": "Prospect combined both objections in one turn: 'I'm not really interested. Because I already have an agent.' Sarah responded with the 'already have an agent' script first, then pivoted to discovery: 'Any plans to buy or sell property in the next year or so?' — correct adaptive handling of combined objections without pressure."
+    },
+    {
+      "text": "Agent acknowledges existing agent relationship respectfully without badmouthing competitors",
+      "passed": true,
+      "evidence": "Sarah used the exact script: 'That's great to hear. Many people we speak with already have someone helping them.' No competitor badmouthing."
+    },
+    {
+      "text": "Agent does not push beyond two genuine attempts at any single objection",
+      "passed": true,
+      "evidence": "One combined response to both objections, one discovery pivot. When prospect said 'No. I do not have any plans to buy yourself property in the next couple of months. Any sooner, any later.' — Sarah moved directly to referral ask. No further pushing."
+    },
+    {
+      "text": "Agent asks if prospect knows anyone looking to buy or sell (referral ask)",
+      "passed": true,
+      "evidence": "Sarah asked: 'Do you know anyone who might be looking to buy or sell? We'd love to help them out.' (STT rendered 'buy herself' and 'help him' but the intent was correct — TTS/STT artifact, not a prompt issue.)"
+    },
+    {
+      "text": "Agent captures referral name (Dave Morrison) and phone number",
+      "passed": false,
+      "evidence": "FAIL — Prospect gave a name ('x y zed' — likely anonymised in test) but REFUSED to give the phone number: 'I'm not able to tell you his phone number or even ID. It's best that if you can give your number so that I can ask him to call you back.' Sarah adapted by providing the company number instead of capturing the referral's number. While the adaptive behaviour was excellent (respected privacy, offered alternative), the prompt says 'capture the name and number' — the agent did not attempt to capture the number before accepting the refusal, and did not log the referral details via any tool."
+    },
+    {
+      "text": "No fake urgency, guilt, manipulative emotional appeals, or pressure tactics used",
+      "passed": true,
+      "evidence": "No pressure tactics observed throughout. Agent was respectful and non-pushy across all turns."
+    },
+    {
+      "text": "Call ends warmly without burning the bridge ('If anything changes, Multi Dynamic is always here')",
+      "passed": true,
+      "evidence": "Sarah's closing: 'Thanks for your time. If anything changes, multi dynamic Rampart is always here.' — bridge-preserving closing used (TTS mispronounced 'Oran Park' as 'Rampart')."
+    },
+    {
+      "text": "Tool execution follows correct order: log_call_outcome → end_call",
+      "passed": null,
+      "evidence": "UNVERIFIABLE — Transcript shows 'End Call - Completed successfully' but log_call_outcome is not visible in the voice transcript. Cannot confirm execution order from audio alone."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 1,
+    "unverifiable": 1,
+    "total": 8,
+    "pass_rate": 0.75
+  },
+  "additional_findings": [
+    {
+      "finding": "Variable injection failure (repeated from Eval 1)",
+      "severity": "Critical",
+      "detail": "Sarah said 'Am I speaking with your name?' — the [Name] variable was not populated. Same platform/Vapi config issue seen in the happy path call."
+    },
+    {
+      "finding": "TTS pronunciation issues (repeated from Eval 1)",
+      "severity": "Medium",
+      "detail": "'Oran Park' rendered as 'Orrin Park', 'Ramparts', 'Moran Park', and 'Rampart' across different turns in the same call. Four different wrong pronunciations of the same suburb name — this erodes credibility. V8 adds a TTS Pronunciation Guide to address this."
+    },
+    {
+      "finding": "Post-closing 'Goodbye' appended to closing message",
+      "severity": "Low",
+      "detail": "Sarah said 'Thanks for your time. If anything changes, multi dynamic Rampart is always here. Goodbye.' The prompt's closing template does not include 'Goodbye' — it ends at 'always here.' Adding 'Goodbye' is technically an 'additional farewell' beyond the template. Unlike Eval 1 (where Sarah responded to the prospect's acknowledgment), here the 'Goodbye' was part of the same utterance. Minor but noted."
+    },
+    {
+      "finding": "Interruption overlap during referral ask",
+      "severity": "Low",
+      "detail": "Sarah was mid-sentence ('We'd love to help him—') when the prospect interrupted ('I think my free—'). Sarah then completed her sentence ('We'd love to help them out.') after the prospect paused. The overlap was handled reasonably but created an awkward moment."
+    },
+    {
+      "finding": "Referral handling — good adaptation but missing tool logging",
+      "severity": "Medium",
+      "detail": "When the prospect refused to give the referral's phone number and asked Sarah to provide the company number instead, Sarah adapted excellently — gave the number naturally and respected privacy. However, the prompt says to 'capture the name and number.' Sarah did not log the referral details via log_callback or any tool. The referral name and the prospect's request for the friend to call back should have been logged so the team has context if the friend calls."
+    },
+    {
+      "finding": "STT artifacts altering meaning",
+      "severity": "Medium",
+      "detail": "'Buy or sell' rendered as 'buy herself' and 'help them' as 'help him' — while these are STT transcription artifacts (not agent errors), they could indicate the TTS voice is not enunciating 'or sell' clearly enough, causing speech-to-text to mishear."
+    }
+  ]
+}

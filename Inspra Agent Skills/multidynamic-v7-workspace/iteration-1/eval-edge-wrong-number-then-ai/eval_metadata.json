@@ -1,0 +1,13 @@
+{
+  "eval_id": 3,
+  "eval_name": "edge-wrong-number-then-ai",
+  "prompt": "Simulate an outbound call where James Park thinks he's calling a Thai restaurant, Sarah clarifies. James asks if she's a robot. He says he might buy in about 8 months.",
+  "assertions": [
+    {"text": "Agent politely clarifies Multi Dynamic is a real estate agency, not a restaurant", "type": "behavior"},
+    {"text": "When asked if robot/AI, agent confirms AI identity honestly without being defensive", "type": "behavior"},
+    {"text": "Agent references that AI identity was already disclosed in the opening message", "type": "behavior"},
+    {"text": "Buying within 8 months is categorised as Warm lead (6-12 months)", "type": "contains"},
+    {"text": "Agent asks if prospect is looking to buy in the local area (Oren Park, Catherine Field, or nearby)", "type": "contains"},
+    {"text": "Numbers, dates, and times are spoken naturally — no written format like $250,000 or 14:00", "type": "behavior"}
+  ]
+}

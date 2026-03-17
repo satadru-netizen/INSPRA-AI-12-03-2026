@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "Agent politely clarifies Multi Dynamic is a real estate agency, not a restaurant",
+      "passed": true,
+      "evidence": "SARAH: \"Ha, I can see how that might be confusing! Just to clarify — Multi Dynamic is actually a real estate agency, not a restaurant.\""
+    },
+    {
+      "text": "When asked if robot/AI, agent confirms AI identity honestly without being defensive",
+      "passed": true,
+      "evidence": "SARAH: \"No need to apologise! I actually mentioned it at the start — yeah, I'm an AI assistant calling on behalf of Multi Dynamic, but everything I'm talking about is real.\""
+    },
+    {
+      "text": "Agent references that AI identity was already disclosed in the opening message",
+      "passed": true,
+      "evidence": "SARAH: \"I actually mentioned it at the start — yeah, I'm an AI assistant calling on behalf of Multi Dynamic\" — explicitly references the prior disclosure."
+    },
+    {
+      "text": "Buying within 8 months is categorised as Warm lead (6-12 months)",
+      "passed": true,
+      "evidence": "Tool call log_call_outcome shows lead_category: \"Warm\" and customer_intent: \"Buying in approximately eight months\"."
+    },
+    {
+      "text": "Agent asks if prospect is looking to buy in the local area (Oren Park, Catherine Field, or nearby)",
+      "passed": true,
+      "evidence": "SARAH: \"Are you looking in the local area — Oren Park, Catherine Field, or nearby?\""
+    },
+    {
+      "text": "Numbers, dates, and times are spoken naturally — no written format like $250,000 or 14:00",
+      "passed": true,
+      "evidence": "All numbers are written out naturally: \"twelve months\", \"eight months or so\". No instances of numeric formats like $, digits, or clock-style times appear in agent speech."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

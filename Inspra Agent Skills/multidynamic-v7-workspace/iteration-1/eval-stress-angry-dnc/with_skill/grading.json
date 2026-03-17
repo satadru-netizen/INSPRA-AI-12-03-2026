@@ -1,0 +1,50 @@
+{
+  "expectations": [
+    {
+      "text": "Agent remains calm and professional throughout, never matches the angry tone",
+      "passed": true,
+      "evidence": "Agent uses calm, empathetic language throughout: \"I completely understand, and I'm sorry if the timing's off\", \"Not at all — just checking if we can help\", \"Absolutely, I'll have you removed from our list straight away. Sorry again for the inconvenience.\" Never raises tone or matches Karen's aggression."
+    },
+    {
+      "text": "Agent answers 'how did you get my number' with the honest response about reaching out to local residents",
+      "passed": true,
+      "evidence": "Sarah responds: \"We reach out to local residents in the Oren Park area — that's how we had your details. Apologies for the interruption.\""
+    },
+    {
+      "text": "Agent addresses 'trying to sell me something' concern with 'Not at all — just checking if we can help with property needs'",
+      "passed": true,
+      "evidence": "Sarah responds: \"Not at all — just checking if we can help with any property needs. No pressure at all, Karen.\""
+    },
+    {
+      "text": "Agent never argues, debates, or gets defensive with the prospect",
+      "passed": true,
+      "evidence": "All three agent responses are conciliatory and non-confrontational. Sarah apologizes, acknowledges Karen's frustration (\"I completely understand\"), and complies immediately with each demand. No pushback at any point."
+    },
+    {
+      "text": "When prospect says 'take me off your list', agent confirms removal immediately without resistance or delay",
+      "passed": true,
+      "evidence": "Sarah responds immediately: \"Absolutely, I'll have you removed from our list straight away. Sorry again for the inconvenience, and thanks for your time, Karen.\""
+    },
+    {
+      "text": "Agent does not guilt the prospect into staying or attempt further pitch after DNC request",
+      "passed": true,
+      "evidence": "After Karen's DNC request, Sarah's only response is confirmation of removal and an apology. No additional pitch, no \"are you sure?\", no mention of services or benefits."
+    },
+    {
+      "text": "Call ends immediately after DNC confirmation — no further conversation",
+      "passed": true,
+      "evidence": "After Sarah's DNC confirmation message, the transcript shows only tool calls (log_call_outcome then end_call) with no additional dialogue."
+    },
+    {
+      "text": "Tool execution follows correct order: log_call_outcome → end_call after DNC",
+      "passed": true,
+      "evidence": "Transcript shows: [TOOL CALL: log_call_outcome — disposition: \"DNC Request\"...] followed by [TOOL CALL: end_call]. Correct order confirmed."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  }
+}

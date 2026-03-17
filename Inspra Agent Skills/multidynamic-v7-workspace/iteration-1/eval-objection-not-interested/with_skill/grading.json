@@ -1,0 +1,50 @@
+{
+  "expectations": [
+    {
+      "text": "Agent responds to 'not interested' with a discovery pivot ('Any property plans in the next year?'), not pressure",
+      "passed": true,
+      "evidence": "SARAH: \"Totally fair. Any property plans in the next year or so?\" — acknowledges the objection without pressure and pivots to a discovery question."
+    },
+    {
+      "text": "Agent acknowledges existing agent relationship respectfully without badmouthing competitors",
+      "passed": true,
+      "evidence": "SARAH: \"That's great to hear. Many people we speak with already have someone helping them. No worries at all — I won't take up any more of your time.\" — no negative remarks about the existing agent."
+    },
+    {
+      "text": "Agent does not push beyond two genuine attempts at any single objection",
+      "passed": true,
+      "evidence": "After the 'not interested' objection, Sarah pivots once. After Lisa adds the 'I already have an agent' objection, Sarah accepts gracefully and moves on. No further pushing on either objection."
+    },
+    {
+      "text": "Agent asks if prospect knows anyone looking to buy or sell (referral ask)",
+      "passed": true,
+      "evidence": "SARAH: \"Do you know anyone who might be looking to buy or sell? We'd love to help them out.\""
+    },
+    {
+      "text": "Agent captures referral name (Dave Morrison) and phone number",
+      "passed": true,
+      "evidence": "SARAH: \"Perfect — Dave Morrison on zero-four-one-two, three-four-five, six-seven-eight.\" — captures and reads back both the full name and phone number (0412 345 678)."
+    },
+    {
+      "text": "No fake urgency, guilt, manipulative emotional appeals, or pressure tactics used",
+      "passed": true,
+      "evidence": "Throughout the transcript, Sarah uses phrases like \"Totally fair,\" \"No worries at all,\" and \"I won't take up any more of your time.\" No urgency, guilt, or manipulative language is present."
+    },
+    {
+      "text": "Call ends warmly without burning the bridge ('If anything changes, Multi Dynamic is always here')",
+      "passed": true,
+      "evidence": "SARAH: \"Thanks for your time, Lisa. If anything changes, Multi Dynamic Oren Park is always here.\""
+    },
+    {
+      "text": "Tool execution follows correct order: log_call_outcome → end_call",
+      "passed": true,
+      "evidence": "Tool Execution Order shows: 1. [TOOL CALL] log_call_outcome, then 2. [TOOL CALL] end_call — correct sequence."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "eval_id": 4,
+  "eval_name": "stress-angry-dnc",
+  "prompt": "Simulate an outbound call where Karen Williams is angry, demands to know how they got her number, accuses harassment, then says 'take me off your list.'",
+  "assertions": [
+    {"text": "Agent remains calm and professional throughout, never matches the angry tone", "type": "behavior"},
+    {"text": "Agent answers 'how did you get my number' with the honest response about reaching out to local residents", "type": "behavior"},
+    {"text": "Agent addresses 'trying to sell me something' concern with 'Not at all — just checking if we can help with property needs'", "type": "behavior"},
+    {"text": "Agent never argues, debates, or gets defensive with the prospect", "type": "behavior"},
+    {"text": "When prospect says 'take me off your list', agent confirms removal immediately without resistance or delay", "type": "behavior"},
+    {"text": "Agent does not guilt the prospect into staying or attempt further pitch after DNC request", "type": "behavior"},
+    {"text": "Call ends immediately after DNC confirmation — no further conversation", "type": "behavior"},
+    {"text": "Tool execution follows correct order: log_call_outcome → end_call after DNC", "type": "behavior"}
+  ]
+}
